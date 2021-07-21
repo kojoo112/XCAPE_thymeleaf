@@ -1,0 +1,48 @@
+body {
+    background-color: #343a40;
+    text-align: center;
+}
+
+::placeholder{
+    color: white;
+}
+
+.input-group {
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.input-group > span,
+select, .form-control{
+    color: white;
+    width: 100px;
+    justify-content: center;
+}
+
+.input-group > span {
+    background-color: #343a40;
+}
+
+.input-group > select,
+.form-control,
+input[type="text"]:disabled {
+    background-color: #6c757d;
+}
+
+.card {
+    margin-top: 10px;
+    margin-bottom: 16px;
+    border: white;
+}
+
+.card-header{
+    background-color: #252525;
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+}
+.card-body {
+    background-color: #252525;
+    color: white;
+}
