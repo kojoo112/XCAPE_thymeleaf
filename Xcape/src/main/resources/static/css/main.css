@@ -46,3 +46,19 @@ input[type="text"]:disabled {
     background-color: #252525;
     color: white;
 }
+input[type="text"]:focus,
+.select-box:focus {
+    background-color: #6c757d;
+    color: white;
+}
+
+.table{
+    vertical-align: middle;
+}
+
+.message1, .message2{
+    cursor: pointer;
+}
+.message1:hover, .message2:hover{
+    border: 2px solid white;
+}

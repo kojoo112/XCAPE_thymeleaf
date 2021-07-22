@@ -21,7 +21,7 @@
                     <div class="col-md-4 col-sm-12 col">
                         <div class="mb-3 input-group">
                             <span class="input-group-text">가맹점</span>
-                            <select class="form-control" id="merchant" onchange="getThemeList()">
+                            <select class="form-control select-box" id="merchant" onchange="getThemeList()">
                                 <option th:each="merchantList : ${merchantLists}"
                                         th:value="${merchantList.merchant.merchantCode}"
                                         th:utext="${merchantList.merchant.merchantName}"></option>
@@ -31,7 +31,7 @@
                     <div class="col-md-4 col-sm-12 col">
                         <div class="mb-3 input-group">
                             <span class="input-group-text">테마</span>
-                            <select class="form-control" id="theme">
+                            <select class="form-control select-box" id="theme">
                                 <option th:each="themeList : ${themeLists}"
                                         th:value="${themeList.themeCode}"
                                         th:utext="${themeList.themeName}"></option>
@@ -76,7 +76,7 @@
 <div class="text-white bg-dark mb-3 card">
     <div class="card-header">Hint List</div>
     <div class="card-body" id="handlebarEx">
-        <table class="table table-dark table-striped table-bordered">
+        <table class="table table-hover table-dark table-striped table-bordered text-center">
             <thead>
             <tr>
                 <th class="col-md-1">#</th>
@@ -88,22 +88,28 @@
             </thead>
             <tbody id="hintList">
                 <script id="example" type="text/x-handlebars-template">
-                    \{{#each hintList}}
+                    {{#each hintList}}
                     <tr>
-                        <td>{{@../key}}</td>
+                        <td>{{incremented @index}}</td>
                         <td>{{ key }}</td>
-                        <td class="{{seq}}" id="message1">{{ message1 }}</td>
-                        <td class="{{seq}}" id="message2">{{ message2 }}</td>
+                        <td class="message1" onclick="modifyHint({{seq}}, 'message1', '{{message1}}')">{{ message1 }}</td>
+                        <td class="message2" onclick="modifyHint({{seq}}, 'message2', '{{message2}}')">{{ message2 }}</td>
                         <td class="{{seq}}">
-                            <button class="btn btn-danger deleteButton" id="{{seq}}">X</button>
+                            <button class="btn btn-danger deleteButton" id="{{seq}}" onclick="deleteHint(id)">X</button>
                         </td>
                     </tr>
-                    \{{/each}}
+                    {{/each}}
                 </script>
             </tbody>
         </table>
     </div>
 </div>
 <script type="text/javascript" th:inline="javascript" th:src="@{js/main.js}"></script>
+<script type="text/javascript">
+    Handlebars.registerHelper('incremented', function (index) {
+        index++;
+        return index;
+    });
+</script>
 </body>
 </html>
