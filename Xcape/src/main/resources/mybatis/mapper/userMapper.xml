@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.samsan.xcape.dao.UserDAO">
+
+    <select id="getUserCount" resultType="int">
+        SELECT
+            COUNT(`email`)
+            AS `count`
+        FROM
+             `user`
+        WHERE
+            `email` = #{email};
+    </select>
+
+    <insert id="signUp" parameterType="com.samsan.xcape.vo.UserVO">
+        INSERT INTO `user`(
+            `email`,
+            `name`,
+            `picture`,
+            `identification_number`
+        )
+        VALUE (
+            #{email},
+            #{name},
+            #{picture},
+            #{identificationNumber}
+        )
+    </insert>
+
+    <select id="findUserByEmail" parameterType="com.samsan.xcape.vo.UserVO" resultType="com.samsan.xcape.vo.UserVO">
+        SELECT
+            `email`,
+            `name`,
+            `picture`,
+            `identification_number` AS `identificationNumber`,
+            `cre_date` AS `creDate`,
+            `mod_date` AS `modDate`
+        FROM
+            `user`
+        WHERE
+            `email` = #{email};
+    </select>
+
+</mapper>
