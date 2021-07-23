@@ -14,25 +14,22 @@
 
     <insert id="signUp" parameterType="com.samsan.xcape.vo.UserVO">
         INSERT INTO `user`(
+            `id`,
             `email`,
-            `name`,
-            `picture`,
-            `identification_number`
+            `nickname`
         )
         VALUE (
+            #{id},
             #{email},
-            #{name},
-            #{picture},
-            #{identificationNumber}
+            #{nickname}
         )
     </insert>
 
     <select id="findUserByEmail" parameterType="com.samsan.xcape.vo.UserVO" resultType="com.samsan.xcape.vo.UserVO">
         SELECT
+            `id`,
             `email`,
-            `name`,
-            `picture`,
-            `identification_number` AS `identificationNumber`,
+            `nickname`,
             `cre_date` AS `creDate`,
             `mod_date` AS `modDate`
         FROM

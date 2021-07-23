@@ -16,4 +16,10 @@ public interface UserService {
     public String googleLogin(String idtoken, HttpServletRequest request, HttpServletResponse response) throws GeneralSecurityException, IOException;
 
     public UserVO findUserByEmail(String email);
+
+    public UserVO getUserInfo(String accessToken);
+
+    public String getAccessToken(String code);
+
+    public void kakaoLogout(String accessToken);
 }
