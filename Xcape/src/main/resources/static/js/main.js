@@ -9,7 +9,6 @@
         themeCode: $("#theme").val()
     }
     getHintList(object);
-    console.log('getHint');
 })();
 
 /**

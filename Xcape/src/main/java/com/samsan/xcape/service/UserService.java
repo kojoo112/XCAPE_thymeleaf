@@ -13,8 +13,6 @@ public interface UserService {
 
     public void signUp(UserVO userVO);
 
-    public String googleLogin(String idtoken, HttpServletRequest request, HttpServletResponse response) throws GeneralSecurityException, IOException;
-
     public UserVO findUserByEmail(String email);
 
     public UserVO getUserInfo(String accessToken);

@@ -1,7 +1,6 @@
 package com.samsan.xcape.controller;
 
 import com.samsan.xcape.service.HintService;
-import com.samsan.xcape.vo.HintVO;
 import com.samsan.xcape.vo.MerchantVO;
 import com.samsan.xcape.vo.ThemeVO;
 import lombok.extern.log4j.Log4j2;

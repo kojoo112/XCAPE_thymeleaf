@@ -2,29 +2,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{css/index.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{css/index.css}">
     <title>XCAPE</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-
-        body{
-            background-color: #343a40;
-        }
-
-        .card {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-        }
-    </style>
 </head>
 <body>
 <!--<div id="img">-->
@@ -33,8 +14,8 @@
 <div class="card text-white bg-dark mb-3 text-center center-block" style="max-width: 22rem;">
     <div class="card-header">Login</div>
     <div class="card-body">
-        <a class="card-title" href="https://kauth.kakao.com/oauth/authorize?client_id=e7112a8c92821f0ac3e6f007b524115f&redirect_uri=http://localhost:8080/login&response_type=code">
-            <img src="/img/kakao_login_medium_narrow.png" alt="이미지가 없습니다."/>
+        <a class="card-title" href="https://kauth.kakao.com/oauth/authorize?client_id=e7112a8c92821f0ac3e6f007b524115f&redirect_uri=https://15.165.148.115/login&response_type=code">
+            <img src="img/kakao_login_medium_narrow.png" alt="이미지가 없습니다."/>
         </a>
     </div>
 </div>

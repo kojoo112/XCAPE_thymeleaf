@@ -1,11 +1,5 @@
 package com.samsan.xcape.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.googleapis.util.Utils;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.JsonFactory;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -14,22 +8,15 @@ import com.samsan.xcape.vo.UserVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.GeneralSecurityException;
-import java.util.Collections;
 
 @Service
 @Log4j2
 public class UserServiceImpl implements UserService{
 
     private final UserDAO userDAO;
-
-    private final String CLIENT_ID = "164344653512-o9cmcj2g320u721tg6qktj66fq6om77e.apps.googleusercontent.com";
 
     public UserServiceImpl(UserDAO userDAO) {
         this.userDAO = userDAO;
@@ -43,41 +30,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public void signUp(UserVO userVO) {
         userDAO.signUp(userVO);
-    }
-
-    @Override
-    public String googleLogin(String idtoken, HttpServletRequest request, HttpServletResponse response) throws GeneralSecurityException, IOException {
-        HttpTransport transport = Utils.getDefaultTransport();
-        JsonFactory jsonFactory = Utils.getDefaultJsonFactory();
-
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
-                .setAudience(Collections.singletonList(CLIENT_ID))
-                .build();
-
-        ObjectMapper mapper = new ObjectMapper();
-        GoogleIdToken idToken = verifier.verify(idtoken);
-        if (idToken != null) {
-            GoogleIdToken.Payload payload = idToken.getPayload();
-            int count = getUserCount(payload.getEmail());
-            if(count == 0){
-                UserVO userVO = new UserVO();
-                userVO.setEmail(payload.getEmail());
-
-                HttpSession session = request.getSession();
-                session.setAttribute("user", userVO);
-                signUp(userVO);
-                String result = mapper.writeValueAsString(userVO);
-                return result;
-            }
-            UserVO userVO = findUserByEmail(payload.getEmail());
-            HttpSession session = request.getSession();
-            session.setAttribute("user", userVO);
-            String result = mapper.writeValueAsString(userVO);
-
-            return result;
-        } else {
-            return "fail";
-        }
     }
 
     @Override
@@ -101,7 +53,7 @@ public class UserServiceImpl implements UserService{
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Authorization", "Bearer " + accessToken);
             int responseCode = conn.getResponseCode();
-            log.info("responseCode = " + responseCode);
+//            log.info("responseCode = " + responseCode);
 
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -110,7 +62,7 @@ public class UserServiceImpl implements UserService{
             while((line = bufferedReader.readLine()) != null) {
                 result += line;
             }
-            log.info("userInfo response body = " + result);
+//            log.info("userInfo response body = " + result);
 
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
@@ -167,7 +119,7 @@ public class UserServiceImpl implements UserService{
             bufferedWriter.flush();
 
             int responseCode = conn.getResponseCode();
-            log.info("response code =" + responseCode);
+//            log.info("response code =" + responseCode);
 
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -176,7 +128,7 @@ public class UserServiceImpl implements UserService{
             while((line = bufferedReader.readLine()) != null) {
                 result += line;
             }
-            log.info("response body = " + result);
+//            log.info("response body = " + result);
 
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
@@ -202,7 +154,7 @@ public class UserServiceImpl implements UserService{
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Authorization", "Bearer " + accessToken);
             int responseCode = conn.getResponseCode();
-            log.info("responseCode = " + responseCode);
+//            log.info("responseCode = " + responseCode);
 
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -212,7 +164,7 @@ public class UserServiceImpl implements UserService{
             while((line = bufferedReader.readLine()) != null){
                 result = line;
             }
-            log.info(result);
+//            log.info(result);
         } catch (Exception e) {
             e.printStackTrace();
         }
