@@ -31,7 +31,8 @@
             `email`,
             `nickname`,
             `cre_date` AS `creDate`,
-            `mod_date` AS `modDate`
+            `mod_date` AS `modDate`,
+            `role`
         FROM
             `user`
         WHERE

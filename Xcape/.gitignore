@@ -183,4 +183,4 @@ gradle-app.setting
 # End of https://www.toptal.com/developers/gitignore/api/macos,java,gradle,intellij
 
 application.properties
-/src/main/java/com/samsan/xcape/config/**
+src/main/java/com/samsan/xcape/config/**

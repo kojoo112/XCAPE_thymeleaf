@@ -12,7 +12,7 @@
     <title>XCAPE</title>
     <style>
         html,body{
-            height: 100%;
+            height: fit-content;
         }
     </style>
 </head>
@@ -34,7 +34,7 @@
             </ul>
             <div th:object="${session.userInfo}">
                 <span class="text-light" th:text="*{nickname} + '님 안녕하세요. '"></span>
-                <a href="https://kauth.kakao.com/oauth/logout?client_id=e7112a8c92821f0ac3e6f007b524115f&logout_redirect_uri=https://15.165.148.115/logout">
+                <a href="https://kauth.kakao.com/oauth/logout?client_id=e7112a8c92821f0ac3e6f007b524115f&logout_redirect_uri=http://localhost:8080/logout">
                     <button class="btn btn-danger">로그아웃</button>
                 </a>
             </div>
@@ -120,7 +120,7 @@
                     {{#each hintList}}
                     <tr>
                         <td>{{incremented @index}}</td>
-                        <td>{{ key }}</td>
+                        <td class="key" onclick="modifyHintCode({{seq}}, '{{key}}')">{{ key }}</td>
                         <td class="message1" onclick="modifyHint({{seq}}, 'message1', '{{message1}}')">{{ message1 }}</td>
                         <td class="message2" onclick="modifyHint({{seq}}, 'message2', '{{message2}}')">{{ message2 }}</td>
                         <td class="{{seq}}">

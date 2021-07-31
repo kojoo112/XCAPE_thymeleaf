@@ -54,7 +54,9 @@ public class UserServiceImpl implements UserService{
             conn.setRequestProperty("Authorization", "Bearer " + accessToken);
             int responseCode = conn.getResponseCode();
 //            log.info("responseCode = " + responseCode);
-
+            if(responseCode == 401){    // 추가된 코드
+                return userInfo;
+            }
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             String line = "";
@@ -78,6 +80,7 @@ public class UserServiceImpl implements UserService{
             if(getUserCount(email) > 0){
                 UserVO existUser = findUserByEmail(email);
 
+                userInfo.setRole(existUser.getRole());
                 userInfo.setEmail(existUser.getEmail());
                 userInfo.setNickname(existUser.getNickname());
                 userInfo.setId(existUser.getId());
@@ -121,6 +124,10 @@ public class UserServiceImpl implements UserService{
             int responseCode = conn.getResponseCode();
 //            log.info("response code =" + responseCode);
 
+            if(responseCode == 400) {
+                bufferedWriter.close();
+                return refreshToken;
+            }
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             String line = "";
@@ -135,7 +142,6 @@ public class UserServiceImpl implements UserService{
 
             accessToken = element.getAsJsonObject().get("access_token").getAsString();
             refreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
-
             bufferedReader.close();
             bufferedWriter.close();
         } catch (Exception e){

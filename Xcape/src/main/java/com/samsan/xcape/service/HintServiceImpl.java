@@ -5,6 +5,7 @@ import com.samsan.xcape.util.RandomKeyValue;
 import com.samsan.xcape.vo.HintVO;
 import com.samsan.xcape.vo.MerchantVO;
 import com.samsan.xcape.vo.ThemeVO;
+import com.samsan.xcape.vo.UserVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +25,8 @@ public class HintServiceImpl implements HintService{
     }
 
     @Override
-    public List<MerchantVO> getMerchantList() {
-        return hintDAO.getMerchantList();
+    public List<MerchantVO> getMerchantList(UserVO userVO) {
+        return hintDAO.getMerchantList(userVO);
     }
 
     @Override
@@ -44,10 +45,9 @@ public class HintServiceImpl implements HintService{
     }
 
     @Override
-    public List<ThemeVO> getThemeList(String merchantCode) {
-        return hintDAO.getThemeList(merchantCode);
+    public List<ThemeVO> getThemeList(String merchantCode, UserVO userVO) {
+        return hintDAO.getThemeList(merchantCode, userVO);
     }
-
 
     private boolean isKeyOverlap(String key){
         return hintDAO.getHintCount(key) != 0;
@@ -66,5 +66,15 @@ public class HintServiceImpl implements HintService{
     @Override
     public void deleteHint(HintVO hintVO) {
         hintDAO.deleteHint(hintVO);
+    }
+
+    @Override
+    public boolean modifyHintCode(String key, int seq) {
+        if(!isKeyOverlap(key)) {
+            hintDAO.modifyHintCode(key, seq);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

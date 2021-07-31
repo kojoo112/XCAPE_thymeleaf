@@ -140,7 +140,7 @@ const deleteHint = (id) => {
 
 const modifyHint = (seq, name, message) => {
     let modifiedMessage = prompt('💻 수정할 내용을 입력해주세요.', message);
-    if(modifiedMessage) {
+    if(modifiedMessage != null) {
         if (modifiedMessage != message) {
             let object = {
                 [name]: modifiedMessage,
@@ -160,6 +160,41 @@ const modifyHint = (seq, name, message) => {
                     getHintList(merchantTheme);
                 },
                 error: function (err){
+                    alert('😭 변경에 실패했습니다.');
+                    console.log(err);
+                }
+            })
+        }
+    }
+}
+
+const modifyHintCode = (seq, key) => {
+    let modifiedHintCode = prompt('💻 수정할 내용을 입력해주세요.', key);
+    if(modifiedHintCode != null){
+        if(modifiedHintCode != key){
+            let object = {
+                seq: seq,
+                key: modifiedHintCode
+            }
+            let merchantTheme = {
+                merchantCode: $("#merchant").val(),
+                themeCode: $("#theme").val()
+            }
+            $.ajax({
+                type:'POST',
+                url:'/modifyHintCode',
+                // contentType: 'application/json',
+                data: object,
+                statusCode: {
+                    200: function () {
+                        alert('🔥 힌트가 변경되었습니다.');
+                        getHintList(merchantTheme);
+                    },
+                    202: function () {
+                        alert('🙅 중복된 힌트코드입니다.');
+                    }
+                },
+                error: function (err) {
                     alert('😭 변경에 실패했습니다.');
                     console.log(err);
                 }

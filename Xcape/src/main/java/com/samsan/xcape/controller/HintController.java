@@ -4,7 +4,10 @@ import com.samsan.xcape.service.HintService;
 import com.samsan.xcape.vo.HintVO;
 import com.samsan.xcape.vo.MerchantVO;
 import com.samsan.xcape.vo.ThemeVO;
+import com.samsan.xcape.vo.UserVO;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,15 +24,15 @@ public class HintController {
 
     @GetMapping("/theme/list")
     @ResponseBody
-    public List<ThemeVO> getThemeList(String merchantCode){
-        List<ThemeVO> themeVOList = hintService.getThemeList(merchantCode);
+    public List<ThemeVO> getThemeList(String merchantCode, UserVO userVO){
+        List<ThemeVO> themeVOList = hintService.getThemeList(merchantCode, userVO);
         return themeVOList;
     }
 
     @GetMapping("/merchant/list")
     @ResponseBody
-    public List<MerchantVO> getMerchantList(){
-        List<MerchantVO> merchantVOList = hintService.getMerchantList();
+    public List<MerchantVO> getMerchantList(UserVO userVO){
+        List<MerchantVO> merchantVOList = hintService.getMerchantList(userVO);
         return merchantVOList;
     }
 
@@ -60,4 +63,16 @@ public class HintController {
         hintService.deleteHint(hintVO);
     }
 
+    @PostMapping("/modifyHintCode")
+    public ResponseEntity modifyHintCode(String key, int seq){
+        HttpStatus httpStatus;
+
+        boolean isModified = hintService.modifyHintCode(key, seq);
+        if(isModified) {
+            httpStatus = HttpStatus.OK;
+        } else {
+            httpStatus = HttpStatus.ACCEPTED;
+        }
+        return new ResponseEntity(httpStatus);
+    }
 }

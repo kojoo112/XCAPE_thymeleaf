@@ -3,6 +3,7 @@ package com.samsan.xcape.service;
 import com.samsan.xcape.vo.HintVO;
 import com.samsan.xcape.vo.MerchantVO;
 import com.samsan.xcape.vo.ThemeVO;
+import com.samsan.xcape.vo.UserVO;
 
 import java.util.List;
 
@@ -10,17 +11,19 @@ public interface HintService {
 
     List<HintVO> getHint(String merchantCode, String themeCode);
 
-    List<MerchantVO> getMerchantList();
+    List<MerchantVO> getMerchantList(UserVO userVO);
 
     void registerHint(HintVO hintVO);
 
     void updateHint(HintVO hintVO);
 
-    List<ThemeVO> getThemeList(String merchantCode);
+    List<ThemeVO> getThemeList(String merchantCode, UserVO userVO);
 
     int getHintCount(String key);
 
     void modifyMessage(HintVO hintVO);
 
     void deleteHint(HintVO hintVO);
+
+    boolean modifyHintCode(String key, int seq);
 }

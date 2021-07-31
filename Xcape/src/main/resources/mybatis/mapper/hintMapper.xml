@@ -41,12 +41,15 @@
     <select id="getMerchantList" resultType="com.samsan.xcape.vo.MerchantVO">
         SELECT
             `seq`,
-            `user_id` AS `userId`,
             `merchant_code` AS `merchant`,
             `reg_date` AS `regDate`,
             `mod_date` AS `modDate`
         FROM
             `merchant`
+        <if test='role neq "developer"'>
+        WHERE
+                `user_id` = #{id}
+        </if>
         ORDER BY
             `merchant_code`;
     </select>
@@ -128,5 +131,14 @@
         WHERE
               `key` = #{key};
     </select>
+
+    <update id="modifyHintCode">
+        UPDATE
+            `hint`
+        SET
+            `key` = #{key}
+        WHERE
+            `seq` = #{seq}
+    </update>
 
 </mapper>
