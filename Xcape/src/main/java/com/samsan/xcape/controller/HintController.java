@@ -36,10 +36,10 @@ public class HintController {
         return merchantVOList;
     }
 
-    @GetMapping("/getHint")
+    @GetMapping("/getHintList")
     @ResponseBody
-    public List<HintVO> getHint(String merchantCode, String themeCode){
-        List<HintVO> hintList = hintService.getHint(merchantCode, themeCode);
+    public List<HintVO> getHintList(String merchantCode, String themeCode){
+        List<HintVO> hintList = hintService.getHintList(merchantCode, themeCode);
         return hintList;
     }
 

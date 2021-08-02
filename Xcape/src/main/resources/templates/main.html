@@ -34,7 +34,7 @@
             </ul>
             <div th:object="${session.userInfo}">
                 <span class="text-light" th:text="*{nickname} + '님 안녕하세요. '"></span>
-                <a href="https://kauth.kakao.com/oauth/logout?client_id=e7112a8c92821f0ac3e6f007b524115f&logout_redirect_uri=http://localhost:8080/logout">
+                <a th:href="${@environment.getProperty('kakao.logout.api.url.thymeleaf')}">
                     <button class="btn btn-danger">로그아웃</button>
                 </a>
             </div>

@@ -1,20 +1,36 @@
 package com.samsan.xcape.service;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.samsan.xcape.dao.UserDAO;
+import com.samsan.xcape.vo.AccessTokenRequestResponse;
+import com.samsan.xcape.vo.KakaoLogoutResponse;
+import com.samsan.xcape.vo.KakaoUserResponse;
 import com.samsan.xcape.vo.UserVO;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.Collections;
 
 @Service
 @Log4j2
 public class UserServiceImpl implements UserService{
+
+    @Value("${kakao.user.api.url}")
+    private String kakaoUserApiUrl;
+
+    @Value("${kakao.token.api.url}")
+    private String kakaoTokenApiUrl;
+
+    @Value("${kakao.logout.api.url}")
+    private String kakaoLogoutApiUrl;
 
     private final UserDAO userDAO;
 
@@ -37,6 +53,37 @@ public class UserServiceImpl implements UserService{
         return userDAO.findUserByEmail(email);
     }
 
+    @Override
+    public String getAccessToken(String code) {
+        try {
+            MultiValueMap<String, Object> mmap = new LinkedMultiValueMap<String, Object>();
+
+            mmap.add("grant_type", "authorization_code"); //필수 고정값
+            mmap.add("client_id", "aa8169c90be18a546cbcbff22067ea51"); //카카오 rest_key
+            mmap.add("redirect_url", "http://localhost:8080/login"); //응답받은 리턴URL
+            mmap.add("code", code); //카카오 로그인 후
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=utf-8"); //헤더지정
+            HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<MultiValueMap<String,Object>>(mmap, headers);
+
+            RestTemplate restTemplate = new RestTemplate();
+            FormHttpMessageConverter converter = new FormHttpMessageConverter();
+            converter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_FORM_URLENCODED));
+            restTemplate.getMessageConverters().add(converter);
+
+            //code를 이용해 로그인 사용자 token값 가져오기
+            ResponseEntity<AccessTokenRequestResponse> tokenResponse = restTemplate.postForEntity(kakaoTokenApiUrl, httpEntity, AccessTokenRequestResponse.class);
+
+            return tokenResponse.getBody().getAccess_token();
+        } catch (Exception e){
+            log.info(">>> UserServiceImpl.getAccessToken >>", e);
+        }
+
+        return null;
+    }
+
     /**
      * Kakao Login
      * @param accessToken
@@ -45,132 +92,53 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public UserVO getUserInfo(String accessToken) {
-        String reqUrl = "https://kapi.kakao.com/v2/user/me";
-        UserVO userInfo = new UserVO();
         try {
-            URL url = new URL(reqUrl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-            int responseCode = conn.getResponseCode();
-//            log.info("responseCode = " + responseCode);
-            if(responseCode == 401){    // 추가된 코드
-                return userInfo;
-            }
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(accessToken);
 
-            String line = "";
-            String result = "";
-            while((line = bufferedReader.readLine()) != null) {
-                result += line;
-            }
-//            log.info("userInfo response body = " + result);
+            HttpEntity httpEntity = new HttpEntity(headers);
 
-            JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(result);
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<KakaoUserResponse> result = restTemplate.postForEntity(kakaoUserApiUrl, httpEntity, KakaoUserResponse.class);
+            KakaoUserResponse kakaoUserResponse = result.getBody();
 
-            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-            JsonObject kakaoAccount = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-
-            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            String email = kakaoAccount.getAsJsonObject().get("email").getAsString();
-            String id = element.getAsJsonObject().get("id").getAsString();
+            String getKakaoUserEmail = kakaoUserResponse.getKakao_account().getEmail();
+            String getKakaoUserNickname = kakaoUserResponse.getProperties().getNickname();
+            String getKakaoUserId = kakaoUserResponse.getId();
 
             // 가입된 유저라면
-            if(getUserCount(email) > 0){
-                UserVO existUser = findUserByEmail(email);
-
-                userInfo.setRole(existUser.getRole());
-                userInfo.setEmail(existUser.getEmail());
-                userInfo.setNickname(existUser.getNickname());
-                userInfo.setId(existUser.getId());
-                userInfo.setCreDate(existUser.getCreDate());
-                userInfo.setModDate(existUser.getModDate());
+            if(getUserCount(getKakaoUserEmail) > 0){
+                return findUserByEmail(getKakaoUserEmail);
             } else {
                 // 신규가입
-                userInfo.setNickname(nickname);
-                userInfo.setEmail(email);
-                userInfo.setId(id);
+                UserVO userInfo = UserVO.builder()
+                        .nickname(getKakaoUserNickname)
+                        .email(getKakaoUserEmail)
+                        .id(getKakaoUserId)
+                        .build();
+
                 signUp(userInfo);
+                return userInfo;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.info(">>> UserServiceImpl.getUserInfo >>", e);
         }
-        return userInfo;
-    }
-
-    @Override
-    public String getAccessToken(String code) {
-        String accessToken = "";
-        String refreshToken = "";
-        String reqURL = "https://kauth.kakao.com/oauth/token";
-
-        try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("grant_type=authorization_code");
-            stringBuilder.append("&client_id=aa8169c90be18a546cbcbff22067ea51");
-            stringBuilder.append("&redirect_uri=http://localhost:8080/login");
-            stringBuilder.append("&code=" + code);
-
-            bufferedWriter.write(stringBuilder.toString());
-            bufferedWriter.flush();
-
-            int responseCode = conn.getResponseCode();
-//            log.info("response code =" + responseCode);
-
-            if(responseCode == 400) {
-                bufferedWriter.close();
-                return refreshToken;
-            }
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String line = "";
-            String result = "";
-            while((line = bufferedReader.readLine()) != null) {
-                result += line;
-            }
-//            log.info("response body = " + result);
-
-            JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(result);
-
-            accessToken = element.getAsJsonObject().get("access_token").getAsString();
-            refreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
-            bufferedReader.close();
-            bufferedWriter.close();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return accessToken;
+        return null;
     }
 
     @Override
     public void kakaoLogout(String accessToken) {
-        String reqURL = "http://kapi.kakao.com/v1/user/logout";
+
         try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-            int responseCode = conn.getResponseCode();
-//            log.info("responseCode = " + responseCode);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(accessToken);
 
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            HttpEntity httpEntity = new HttpEntity(headers);
 
-            String result = "";
-            String line = "";
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<KakaoLogoutResponse> result = restTemplate.postForEntity(kakaoLogoutApiUrl, httpEntity, KakaoLogoutResponse.class);
+            KakaoLogoutResponse kakaoLogoutResponse = result.getBody();
 
-            while((line = bufferedReader.readLine()) != null){
-                result = line;
-            }
-//            log.info(result);
         } catch (Exception e) {
             e.printStackTrace();
         }

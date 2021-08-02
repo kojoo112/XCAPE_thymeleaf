@@ -1,6 +1,7 @@
 package com.samsan.xcape.service;
 
 import com.samsan.xcape.dao.HintDAO;
+import com.samsan.xcape.util.CustomXssEscape;
 import com.samsan.xcape.util.RandomKeyValue;
 import com.samsan.xcape.vo.HintVO;
 import com.samsan.xcape.vo.MerchantVO;
@@ -20,8 +21,8 @@ public class HintServiceImpl implements HintService{
     }
 
     @Override
-    public List<HintVO> getHint(String merchantCode, String themeCode) {
-        return hintDAO.getHint(merchantCode, themeCode);
+    public List<HintVO> getHintList(String merchantCode, String themeCode) {
+        return hintDAO.getHintList(merchantCode, themeCode);
     }
 
     @Override
@@ -60,6 +61,7 @@ public class HintServiceImpl implements HintService{
 
     @Override
     public void modifyMessage(HintVO hintVO) {
+//        CustomXssEscape.SetEscapeMessage(hintVO);
         hintDAO.modifyMessage(hintVO);
     }
 

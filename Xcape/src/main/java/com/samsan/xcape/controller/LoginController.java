@@ -2,6 +2,7 @@ package com.samsan.xcape.controller;
 
 import com.samsan.xcape.service.HintService;
 import com.samsan.xcape.service.UserService;
+import com.samsan.xcape.util.XcapeConstant;
 import com.samsan.xcape.vo.MerchantVO;
 import com.samsan.xcape.vo.ThemeVO;
 import com.samsan.xcape.vo.UserVO;
@@ -10,9 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -30,34 +29,37 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public ModelAndView login(String code, HttpSession session, Model model) {
+    public String login(String code, HttpSession session) {
         // 1번 인증코드 요청 전달
         String access_token = userService.getAccessToken(code);
         // 2번 인증코드로 토큰 전달
         UserVO userInfo = userService.getUserInfo(access_token);
-//        log.info("login info : " + userInfo.toString());
+
         if(userInfo.getEmail() != null) {
-            session.setAttribute("userInfo", userInfo);
-            // accessToken도 UserVO??
-            session.setAttribute("access_token", access_token);
-            model.addAttribute("userInfo", userInfo);   // 추가된 코드
+            session.setAttribute(XcapeConstant.USER_INFO, userInfo);
+            session.setAttribute(XcapeConstant.ACCESS_TOKEN, access_token);
         }
-        ModelAndView modelAndView = new ModelAndView("main");
-        List<MerchantVO> merchantList = hintService.getMerchantList(userInfo);
-        List<ThemeVO> themeList = hintService.getThemeList("MRC001", userInfo);
-        model.addAttribute("merchantLists", merchantList);
-        model.addAttribute("themeLists", themeList);
-        return modelAndView;
+
+        return "redirect:/main";
     }
 
     @RequestMapping(value = "/logout")
-    public ModelAndView logout(HttpSession session) {
-        ModelAndView modelAndView = new ModelAndView();
-        userService.kakaoLogout((String) session.getAttribute("access_token"));
-        session.removeAttribute("accessToken");
-        session.removeAttribute("userInfo");
+    public String logout(HttpSession session) {
+        userService.kakaoLogout((String) session.getAttribute(XcapeConstant.ACCESS_TOKEN));
         session.invalidate();
-        modelAndView.setViewName("redirect:/");
-        return modelAndView;
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/main")
+    public String main(HttpSession session, Model model){
+        UserVO userInfo = (UserVO) session.getAttribute(XcapeConstant.USER_INFO);
+
+        List<MerchantVO> merchantList = hintService.getMerchantList(userInfo);
+        List<ThemeVO> themeList = hintService.getThemeList("MRC001", userInfo);
+
+        model.addAttribute("merchantLists", merchantList);
+        model.addAttribute("themeLists", themeList);
+        return "main";
     }
 }

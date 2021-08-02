@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper
 public interface HintDAO {
 
-    List<HintVO> getHint(String merchantCode, String themeCode);
+    List<HintVO> getHintList(String merchantCode, String themeCode);
 
     List<MerchantVO> getMerchantList(UserVO userVO);
 

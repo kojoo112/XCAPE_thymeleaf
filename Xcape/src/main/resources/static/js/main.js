@@ -21,7 +21,7 @@ function getHintList(object){
     let hint = "";
     $.ajax({
         type: 'GET',
-        url: '/getHint',
+        url: '/getHintList',
         data: object,
         success: function (hintList) {
             $('#hintList').empty();

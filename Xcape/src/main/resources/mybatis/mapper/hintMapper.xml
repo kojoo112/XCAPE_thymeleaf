@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.samsan.xcape.dao.HintDAO">
 
-    <select id="getHint" resultType="com.samsan.xcape.vo.HintVO" >
+    <select id="getHintList" resultType="com.samsan.xcape.vo.HintVO" >
         SELECT
                `seq`,
                `user_id` AS `userId`,
