@@ -21,7 +21,7 @@ function getHintList(object){
     let hint = "";
     $.ajax({
         type: 'GET',
-        url: '/getHintList',
+        url: '/api/getHintList',
         data: object,
         success: function (hintList) {
             $('#hintList').empty();
@@ -44,7 +44,7 @@ const getThemeList = () => {
     $('#merchant').change(function () {
         $.ajax({
             type: 'GET',
-            url: '/theme/list',
+            url: '/api/theme/list',
             data: 'merchantCode=' + merchant,
             success: function (data) {
                 $('#theme').empty();
@@ -91,7 +91,7 @@ $('#hintRegisterButton').click(function(){
     if(object.message1 != "" || object.message2 != "") {
         $.ajax({
             type: 'POST',
-            url: '/registerHint',
+            url: '/api/registerHint',
             contentType: 'application/json',
             data: JSON.stringify(object),
             success: function () {
@@ -123,7 +123,7 @@ const deleteHint = (id) => {
         if(confirm('힌트를 삭제하시겠습니까?')){
             $.ajax({
                 type: 'POST',
-                url: '/deleteHint',
+                url: '/api/deleteHint',
                 contentType: 'application/json',
                 data: JSON.stringify({seq: id}),
                 success: function () {
@@ -152,7 +152,7 @@ const modifyHint = (seq, name, message) => {
             }
             $.ajax({
                 type: 'POST',
-                url: '/modifyMessage',
+                url: '/api/modifyMessage',
                 contentType: 'application/json',
                 data: JSON.stringify(object),
                 success: function () {
@@ -182,7 +182,7 @@ const modifyHintCode = (seq, key) => {
             }
             $.ajax({
                 type:'POST',
-                url:'/modifyHintCode',
+                url:'/api/modifyHintCode',
                 // contentType: 'application/json',
                 data: object,
                 statusCode: {

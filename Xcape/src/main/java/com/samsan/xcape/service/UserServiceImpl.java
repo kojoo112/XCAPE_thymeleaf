@@ -1,10 +1,7 @@
 package com.samsan.xcape.service;
 
 import com.samsan.xcape.dao.UserDAO;
-import com.samsan.xcape.vo.AccessTokenRequestResponse;
-import com.samsan.xcape.vo.KakaoLogoutResponse;
-import com.samsan.xcape.vo.KakaoUserResponse;
-import com.samsan.xcape.vo.UserVO;
+import com.samsan.xcape.vo.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -54,7 +51,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String getAccessToken(String code) {
+    public TokenWithUserIdVO getAccessToken(String code) {
         try {
             MultiValueMap<String, Object> mmap = new LinkedMultiValueMap<String, Object>();
 
@@ -75,8 +72,10 @@ public class UserServiceImpl implements UserService{
 
             //code를 이용해 로그인 사용자 token값 가져오기
             ResponseEntity<AccessTokenRequestResponse> tokenResponse = restTemplate.postForEntity(kakaoTokenApiUrl, httpEntity, AccessTokenRequestResponse.class);
-
-            return tokenResponse.getBody().getAccess_token();
+            TokenWithUserIdVO tokenVO = new TokenWithUserIdVO();
+            tokenVO.setAccessToken(tokenResponse.getBody().getAccess_token());
+            tokenVO.setRefreshToken(tokenResponse.getBody().getRefresh_token());
+            return tokenVO;
         } catch (Exception e){
             log.info(">>> UserServiceImpl.getAccessToken >>", e);
         }
@@ -86,15 +85,15 @@ public class UserServiceImpl implements UserService{
 
     /**
      * Kakao Login
-     * @param accessToken
+     * @param tokenWithUserIdVO
      * @return
      *
      */
     @Override
-    public UserVO getUserInfo(String accessToken) {
+    public UserVO getUserInfo(TokenWithUserIdVO tokenWithUserIdVO) {
         try {
             HttpHeaders headers = new HttpHeaders();
-            headers.setBearerAuth(accessToken);
+            headers.setBearerAuth(tokenWithUserIdVO.getAccessToken());
 
             HttpEntity httpEntity = new HttpEntity(headers);
 
@@ -105,9 +104,12 @@ public class UserServiceImpl implements UserService{
             String getKakaoUserEmail = kakaoUserResponse.getKakao_account().getEmail();
             String getKakaoUserNickname = kakaoUserResponse.getProperties().getNickname();
             String getKakaoUserId = kakaoUserResponse.getId();
+            String getRefreshToken = tokenWithUserIdVO.getRefreshToken();
+            tokenWithUserIdVO.setId(getKakaoUserId);
 
             // 가입된 유저라면
             if(getUserCount(getKakaoUserEmail) > 0){
+                registRefreshToken(tokenWithUserIdVO);
                 return findUserByEmail(getKakaoUserEmail);
             } else {
                 // 신규가입
@@ -115,6 +117,7 @@ public class UserServiceImpl implements UserService{
                         .nickname(getKakaoUserNickname)
                         .email(getKakaoUserEmail)
                         .id(getKakaoUserId)
+                        .refreshToken(getRefreshToken)
                         .build();
 
                 signUp(userInfo);
@@ -137,10 +140,15 @@ public class UserServiceImpl implements UserService{
 
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<KakaoLogoutResponse> result = restTemplate.postForEntity(kakaoLogoutApiUrl, httpEntity, KakaoLogoutResponse.class);
-            KakaoLogoutResponse kakaoLogoutResponse = result.getBody();
+//            KakaoLogoutResponse kakaoLogoutResponse = result.getBody();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void registRefreshToken(TokenWithUserIdVO tokenVO) {
+        userDAO.registRefreshToken(tokenVO);
     }
 }

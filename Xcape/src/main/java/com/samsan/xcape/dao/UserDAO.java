@@ -1,5 +1,6 @@
 package com.samsan.xcape.dao;
 
+import com.samsan.xcape.vo.TokenWithUserIdVO;
 import com.samsan.xcape.vo.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -13,4 +14,6 @@ public interface UserDAO {
     public void signUp(UserVO userVO);
 
     UserVO findUserByEmail(String email);
+
+    void registRefreshToken(TokenWithUserIdVO refreshToken);
 }

@@ -1,7 +1,8 @@
-package com.samsan.xcape.interceptor;
+package com.samsan.xcape.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilter;
+import com.samsan.xcape.interceptor.LoginInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/main", "/payment")
+                .addPathPatterns("/main", "/api/**")
                 .excludePathPatterns("/index", "/logout", "/login");
     }
 
@@ -44,19 +45,19 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return registrationBean;
     }
 
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(escapingConverter());
-    }
-
-    @Bean
-    public HttpMessageConverter<?> escapingConverter() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.getFactory().setCharacterEscapes(new HTMLCharacterEscapes());
-
-        MappingJackson2HttpMessageConverter escapingConverter = new MappingJackson2HttpMessageConverter();
-        escapingConverter.setObjectMapper(objectMapper);
-
-        return escapingConverter;
-    }
+//    @Override
+//    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+//        converters.add(escapingConverter());
+//    }
+//
+//    @Bean
+//    public HttpMessageConverter<?> escapingConverter() {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.getFactory().setCharacterEscapes(new HTMLCharacterEscapes());
+//
+//        MappingJackson2HttpMessageConverter escapingConverter = new MappingJackson2HttpMessageConverter();
+//        escapingConverter.setObjectMapper(objectMapper);
+//
+//        return escapingConverter;
+//    }
 }

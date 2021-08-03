@@ -19,7 +19,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         UserVO userVO = (UserVO) session.getAttribute(XcapeConstant.USER_INFO);
-        if(ObjectUtils.isEmpty(userVO)){
+        if(ObjectUtils.isEmpty(userVO) ){
             response.sendRedirect("/");
             return false;
         } else {

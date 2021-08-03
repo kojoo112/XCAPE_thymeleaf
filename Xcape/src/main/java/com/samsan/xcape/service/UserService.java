@@ -1,11 +1,7 @@
 package com.samsan.xcape.service;
 
+import com.samsan.xcape.vo.TokenWithUserIdVO;
 import com.samsan.xcape.vo.UserVO;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 
 public interface UserService {
 
@@ -15,9 +11,11 @@ public interface UserService {
 
     public UserVO findUserByEmail(String email);
 
-    public UserVO getUserInfo(String accessToken);
+    public UserVO getUserInfo(TokenWithUserIdVO tokenVO);
 
-    public String getAccessToken(String code);
+    public TokenWithUserIdVO getAccessToken(String code);
 
     public void kakaoLogout(String accessToken);
+
+    public void registRefreshToken(TokenWithUserIdVO refreshToken);
 }

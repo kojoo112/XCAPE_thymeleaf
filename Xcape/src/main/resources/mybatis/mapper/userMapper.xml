@@ -16,12 +16,14 @@
         INSERT INTO `user`(
             `id`,
             `email`,
-            `nickname`
+            `nickname`,
+            `refresh_token`
         )
         VALUE (
             #{id},
             #{email},
-            #{nickname}
+            #{nickname},
+            #{refreshToken}
         )
     </insert>
 
@@ -39,4 +41,12 @@
             `email` = #{email};
     </select>
 
+    <update id="registRefreshToken" parameterType="com.samsan.xcape.vo.TokenWithUserIdVO">
+        UPDATE
+            `user`
+        SET
+            `refresh_token` = #{refreshToken}
+        WHERE
+            `id` = #{id};
+    </update>
 </mapper>

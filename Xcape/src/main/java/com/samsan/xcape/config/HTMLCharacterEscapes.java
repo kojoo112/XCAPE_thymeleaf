@@ -1,4 +1,4 @@
-package com.samsan.xcape.interceptor;
+package com.samsan.xcape.config;
 
 import com.fasterxml.jackson.core.SerializableString;
 import com.fasterxml.jackson.core.io.CharacterEscapes;

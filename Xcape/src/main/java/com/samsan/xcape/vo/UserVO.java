@@ -13,6 +13,7 @@ public class UserVO {
     private int seq;
     private String id;
     private String role;
+    private String refreshToken;
     private String nickname;
     private String email;
     private String creDate;
