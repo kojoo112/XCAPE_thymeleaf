@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 public class UserVO {
     private int seq;
     private String id;
+    private String telephoneNumber;
+    private String storeName;
     private String role;
     private String refreshToken;
     private String nickname;

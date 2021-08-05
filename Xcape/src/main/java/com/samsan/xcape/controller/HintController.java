@@ -25,8 +25,8 @@ public class HintController {
 
     @GetMapping("/theme/list")
     @ResponseBody
-    public List<ThemeVO> getThemeList(String merchantCode, UserVO userVO){
-        List<ThemeVO> themeVOList = hintService.getThemeList(merchantCode, userVO);
+    public List<ThemeVO> getThemeList(String merchantCode, String storeName){
+        List<ThemeVO> themeVOList = hintService.getThemeList(merchantCode, storeName);
         return themeVOList;
     }
 

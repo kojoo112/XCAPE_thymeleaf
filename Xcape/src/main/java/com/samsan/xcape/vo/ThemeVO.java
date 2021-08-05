@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ThemeVO {
     private int seq;
-    private String userId;
+    private String storeName;
     private String merchantCode;
     private String themeCode;
     private String themeName;

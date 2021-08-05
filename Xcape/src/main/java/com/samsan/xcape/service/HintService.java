@@ -17,7 +17,7 @@ public interface HintService {
 
     void updateHint(HintVO hintVO);
 
-    List<ThemeVO> getThemeList(String merchantCode, UserVO userVO);
+    List<ThemeVO> getThemeList(String merchantCode, String storeName);
 
     int getHintCount(String key);
 

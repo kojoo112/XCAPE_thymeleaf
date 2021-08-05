@@ -4,10 +4,7 @@ import com.samsan.xcape.dao.UserDAO;
 import com.samsan.xcape.vo.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -28,6 +25,9 @@ public class UserServiceImpl implements UserService{
 
     @Value("${kakao.logout.api.url}")
     private String kakaoLogoutApiUrl;
+
+    @Value("${kakao.verifyAccessToken.api.url}")
+    private String kakaoVerifyAccessTokenApiUrl;
 
     private final UserDAO userDAO;
 
@@ -61,7 +61,6 @@ public class UserServiceImpl implements UserService{
             mmap.add("code", code); //카카오 로그인 후
 
             HttpHeaders headers = new HttpHeaders();
-
             headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=utf-8"); //헤더지정
             HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<MultiValueMap<String,Object>>(mmap, headers);
 
@@ -109,7 +108,7 @@ public class UserServiceImpl implements UserService{
 
             // 가입된 유저라면
             if(getUserCount(getKakaoUserEmail) > 0){
-                registRefreshToken(tokenWithUserIdVO);
+//                registRefreshToken(tokenWithUserIdVO);
                 return findUserByEmail(getKakaoUserEmail);
             } else {
                 // 신규가입
@@ -151,4 +150,68 @@ public class UserServiceImpl implements UserService{
     public void registRefreshToken(TokenWithUserIdVO tokenVO) {
         userDAO.registRefreshToken(tokenVO);
     }
+
+    @Override
+    public HttpStatus verifyAccessToken(String accessToken) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(accessToken);
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+            HttpEntity httpEntity = new HttpEntity(headers);
+
+            ResponseEntity<KakaoVerifyAccessTokenVO> result = new RestTemplate().exchange(kakaoVerifyAccessTokenApiUrl, HttpMethod.GET, httpEntity, KakaoVerifyAccessTokenVO.class);
+            return result.getStatusCode();
+        } catch (Exception e){
+            log.info(">>>>verifyAccessToken = " + e);
+        }
+        return null;
+    }
+
+    public String renewAccessTokenByRefreshToken(String userId, String refreshToken) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED + ";charset=utf-8"); //헤더지정
+
+            HttpEntity httpEntity = new HttpEntity(headers);
+
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<RenewAccessTokenVO> result = restTemplate.postForEntity("https://kauth.kakao.com/oauth/token", httpEntity, RenewAccessTokenVO.class);
+            String renewRefreshToken = result.getBody().getRefresh_token();
+
+            if(renewRefreshToken!= refreshToken){
+                TokenWithUserIdVO tokenWithUserIdVO = new TokenWithUserIdVO();
+                tokenWithUserIdVO.setRefreshToken(renewRefreshToken);
+                tokenWithUserIdVO.setId(userId);
+                registRefreshToken(tokenWithUserIdVO);
+            }
+            return result.getBody().getAccess_token();
+        } catch (Exception e){
+            log.info(">>>>>> renewAccessTokenByRefreshToken = " + e);
+        }
+        return null;
+    }
+
+    @Override
+    public String isKakaoAuthUser(String accessToken) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(accessToken);
+
+            HttpEntity httpEntity = new HttpEntity(headers);
+
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<KakaoUserResponse> result = restTemplate.postForEntity(kakaoUserApiUrl, httpEntity, KakaoUserResponse.class);
+            KakaoUserResponse kakaoUserResponse = result.getBody();
+
+            String getKakaoUserId = kakaoUserResponse.getId();
+
+            return getKakaoUserId;
+        } catch (Exception e) {
+            log.info(">>>>>> isKakaoAuthUser = " + e);
+        }
+        return null;
+    }
+
+
 }

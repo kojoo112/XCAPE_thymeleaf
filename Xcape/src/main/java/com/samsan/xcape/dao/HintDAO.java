@@ -5,6 +5,7 @@ import com.samsan.xcape.vo.MerchantVO;
 import com.samsan.xcape.vo.ThemeVO;
 import com.samsan.xcape.vo.UserVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface HintDAO {
 
     void updateHint(HintVO hintVO);
 
-    List<ThemeVO> getThemeList(String merchantCode, UserVO userVO);
+    List<ThemeVO> getThemeList(String merchantCode, String storeName);
 
     int getHintCount(String key);
 

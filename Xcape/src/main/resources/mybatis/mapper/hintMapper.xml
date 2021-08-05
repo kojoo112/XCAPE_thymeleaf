@@ -5,7 +5,6 @@
     <select id="getHintList" resultType="com.samsan.xcape.vo.HintVO" >
         SELECT
                `seq`,
-               `user_id` AS `userId`,
                `merchant_code` AS merchant,
                `theme_code` AS themeCode,
                `theme_name` AS themeName,
@@ -46,16 +45,13 @@
             `mod_date` AS `modDate`
         FROM
             `merchant`
-        <if test='role neq "developer"'>
-        WHERE
-                `user_id` = #{id}
-        </if>
         ORDER BY
             `merchant_code`;
     </select>
 
     <insert id="registerHint" parameterType="com.samsan.xcape.vo.HintVO">
         INSERT INTO `hint`(
+--             `store_name`,
             `message1`,
             `message2`,
             `theme_code`,
@@ -65,6 +61,7 @@
             `merchant_name`
             )
             VALUES(
+--                 #{storeName},
                 #{message1},
                 #{message2},
                 #{themeCode},
@@ -84,20 +81,20 @@
             )
     </insert>
 
-    <update id="updateHint" parameterType="com.samsan.xcape.vo.HintVO">
-        UPDATE
-            `hint`
-        SET
-            `key` = #{key},
-            `message1` = #{message1},
-            `message2` = #{message2},
-            `use` = #{use},
-            `theme` = #{theme},
-            `merchant_code` = #{merchantCode},
-            `merchant_name` = #{merchantName}
-        WHERE
-              (`seq` = #{seq});
-    </update>
+<!--    <update id="updateHint" parameterType="com.samsan.xcape.vo.HintVO">-->
+<!--        UPDATE-->
+<!--            `hint`-->
+<!--        SET-->
+<!--            `key` = #{key},-->
+<!--            `message1` = #{message1},-->
+<!--            `message2` = #{message2},-->
+<!--            `use` = #{use},-->
+<!--            `theme` = #{theme},-->
+<!--            `merchant_code` = #{merchantCode},-->
+<!--            `merchant_name` = #{merchantName}-->
+<!--        WHERE-->
+<!--              (`seq` = #{seq});-->
+<!--    </update>-->
 
     <update id="modifyMessage">
         UPDATE
@@ -110,7 +107,9 @@
                 `message2` = #{message2}
             </if>
         WHERE
-            `seq` = #{seq};
+            `seq` = #{seq}
+--         AND
+--             `store_name` = #{storeName};
     </update>
 
     <update id="deleteHint">
@@ -119,7 +118,9 @@
         SET
             `use` = 'N'
         WHERE
-            `seq` = #{seq};
+            `seq` = #{seq}
+--         AND
+--             `store_name` = #{storeName};
     </update>
     
     <select id="getHintCount" resultType="int">
@@ -129,7 +130,9 @@
         FROM
              hint
         WHERE
-              `key` = #{key};
+              `key` = #{key}
+--         AND
+--               `store_name` = #{storeName};
     </select>
 
     <update id="modifyHintCode">
@@ -139,6 +142,8 @@
             `key` = #{key}
         WHERE
             `seq` = #{seq}
+--         AND
+--             `store_name` = #{storeName};
     </update>
 
 </mapper>

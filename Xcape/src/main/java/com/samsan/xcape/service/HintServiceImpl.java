@@ -1,7 +1,6 @@
 package com.samsan.xcape.service;
 
 import com.samsan.xcape.dao.HintDAO;
-import com.samsan.xcape.util.CustomXssEscape;
 import com.samsan.xcape.util.RandomKeyValue;
 import com.samsan.xcape.vo.HintVO;
 import com.samsan.xcape.vo.MerchantVO;
@@ -46,8 +45,8 @@ public class HintServiceImpl implements HintService{
     }
 
     @Override
-    public List<ThemeVO> getThemeList(String merchantCode, UserVO userVO) {
-        return hintDAO.getThemeList(merchantCode, userVO);
+    public List<ThemeVO> getThemeList(String merchantCode, String storeName) {
+        return hintDAO.getThemeList(merchantCode, storeName);
     }
 
     private boolean isKeyOverlap(String key){
