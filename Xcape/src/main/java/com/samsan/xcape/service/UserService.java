@@ -1,5 +1,6 @@
 package com.samsan.xcape.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.samsan.xcape.vo.TokenWithUserIdVO;
 import com.samsan.xcape.vo.UserVO;
 import org.springframework.http.HttpStatus;
@@ -24,5 +25,6 @@ public interface UserService {
 
     public String renewAccessTokenByRefreshToken(String userId, String refreshToken);
 
-    public String isKakaoAuthUser(String accessToken);
+    public boolean isKakaoAuthUser(String accessToken, UserVO sessionUser);
+
 }

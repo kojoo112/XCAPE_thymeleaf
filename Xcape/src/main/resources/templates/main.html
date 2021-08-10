@@ -121,8 +121,8 @@
                     <tr>
                         <td>{{incremented @index}}</td>
                         <td class="key" onclick="modifyHintCode({{seq}}, '{{key}}')">{{ key }}</td>
-                        <td class="message1" onclick="modifyHint({{seq}}, 'message1', '{{message1}}')">{{ message1 }}</td>
-                        <td class="message2" onclick="modifyHint({{seq}}, 'message2', '{{message2}}')">{{ message2 }}</td>
+                        <td class="message1" onclick="modifyHint({{seq}}, 'message1', '{{message1}}', '{{storeName}}')">{{ message1 }}</td>
+                        <td class="message2" onclick="modifyHint({{seq}}, 'message2', '{{message2}}', '{{storeName}}')">{{ message2 }}</td>
                         <td class="{{seq}}">
                             <button class="btn btn-danger deleteButton" id="{{seq}}" onclick="deleteHint(id)">X</button>
                         </td>

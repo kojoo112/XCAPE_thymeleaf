@@ -1,5 +1,8 @@
 package com.samsan.xcape.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.samsan.xcape.dao.UserDAO;
 import com.samsan.xcape.vo.*;
 import lombok.extern.log4j.Log4j2;
@@ -12,6 +15,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
+import java.util.List;
 
 @Service
 @Log4j2
@@ -35,6 +39,7 @@ public class UserServiceImpl implements UserService{
         this.userDAO = userDAO;
     }
 
+
     @Override
     public int getUserCount(String email) {
         return userDAO.getUserCount(email);
@@ -50,6 +55,11 @@ public class UserServiceImpl implements UserService{
         return userDAO.findUserByEmail(email);
     }
 
+    /**
+     *
+     * @param code
+     * @return
+     */
     @Override
     public TokenWithUserIdVO getAccessToken(String code) {
         try {
@@ -108,7 +118,7 @@ public class UserServiceImpl implements UserService{
 
             // 가입된 유저라면
             if(getUserCount(getKakaoUserEmail) > 0){
-//                registRefreshToken(tokenWithUserIdVO);
+
                 return findUserByEmail(getKakaoUserEmail);
             } else {
                 // 신규가입
@@ -146,11 +156,20 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    /**
+     *
+     * @param tokenVO
+     */
     @Override
     public void registRefreshToken(TokenWithUserIdVO tokenVO) {
         userDAO.registRefreshToken(tokenVO);
     }
 
+    /**
+     *
+     * @param accessToken
+     * @return
+     */
     @Override
     public HttpStatus verifyAccessToken(String accessToken) {
         try {
@@ -168,6 +187,13 @@ public class UserServiceImpl implements UserService{
         return null;
     }
 
+    /**
+     *
+     * @param userId
+     * @param refreshToken
+     * @return
+     */
+    @Override
     public String renewAccessTokenByRefreshToken(String userId, String refreshToken) {
         try {
             HttpHeaders headers = new HttpHeaders();
@@ -192,8 +218,14 @@ public class UserServiceImpl implements UserService{
         return null;
     }
 
+    /**
+     *
+     * @param accessToken
+     * @param sessionUser
+     * @return
+     */
     @Override
-    public String isKakaoAuthUser(String accessToken) {
+    public boolean isKakaoAuthUser(String accessToken, UserVO sessionUser) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setBearerAuth(accessToken);
@@ -204,14 +236,22 @@ public class UserServiceImpl implements UserService{
             ResponseEntity<KakaoUserResponse> result = restTemplate.postForEntity(kakaoUserApiUrl, httpEntity, KakaoUserResponse.class);
             KakaoUserResponse kakaoUserResponse = result.getBody();
 
+            String getKakaoUserEmail = kakaoUserResponse.getKakao_account().getEmail();
+            String getKakaoUserNickname = kakaoUserResponse.getProperties().getNickname();
             String getKakaoUserId = kakaoUserResponse.getId();
 
-            return getKakaoUserId;
+            if(getKakaoUserEmail.equals(sessionUser.getEmail())){
+                if(getKakaoUserId.equals(sessionUser.getId())){
+                    if(getKakaoUserNickname.equals(sessionUser.getNickname())){
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         } catch (Exception e) {
             log.info(">>>>>> isKakaoAuthUser = " + e);
         }
-        return null;
+        return false;
     }
-
-
 }

@@ -138,13 +138,14 @@ const deleteHint = (id) => {
         }
 }
 
-const modifyHint = (seq, name, message) => {
+const modifyHint = (seq, name, message, storeName) => {
     let modifiedMessage = prompt('💻 수정할 내용을 입력해주세요.', message);
     if(modifiedMessage != null) {
         if (modifiedMessage != message) {
             let object = {
                 [name]: modifiedMessage,
-                seq: seq
+                seq: seq,
+                storeName: storeName
             }
             let merchantTheme = {
                 merchantCode: $("#merchant").val(),

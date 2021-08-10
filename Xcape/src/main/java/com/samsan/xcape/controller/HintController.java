@@ -39,19 +39,14 @@ public class HintController {
 
     @GetMapping("/getHintList")
     @ResponseBody
-    public List<HintVO> getHintList(String merchantCode, String themeCode){
-        List<HintVO> hintList = hintService.getHintList(merchantCode, themeCode);
+    public List<HintVO> getHintList(HintVO hintVO){
+        List<HintVO> hintList = hintService.getHintList(hintVO);
         return hintList;
     }
 
     @PostMapping("/registerHint")
     public void registerHint(@RequestBody HintVO hintVO){
         hintService.registerHint(hintVO);
-    }
-
-    @PutMapping("/updateHint")
-    public void updateHint(@RequestBody HintVO hintVO){
-        hintService.updateHint(hintVO);
     }
 
     @PostMapping("/modifyMessage")

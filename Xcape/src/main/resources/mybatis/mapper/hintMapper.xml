@@ -2,16 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.samsan.xcape.dao.HintDAO">
 
-    <select id="getHintList" resultType="com.samsan.xcape.vo.HintVO" >
+    <select id="getHintList" parameterType="com.samsan.xcape.vo.HintVO" resultType="com.samsan.xcape.vo.HintVO" >
         SELECT
                `seq`,
-               `merchant_code` AS merchant,
-               `theme_code` AS themeCode,
-               `theme_name` AS themeName,
+               `store_name` AS `storeName`,
+               `merchant_code` AS `merchantCode`,
+               `merchant_name` AS `merchantName`,
+               `theme_code` AS `themeCode`,
+               `theme_name` AS `themeName`,
                `key`,
                `message1`,
                `message2`,
-               `use`
+               `use`,
+               `reg_date` AS `regDate`,
+               `mod_date` AS `modDate`
         FROM
              `hint`
         WHERE
@@ -25,6 +29,7 @@
     <select id="getThemeList" resultType="com.samsan.xcape.vo.ThemeVO">
         SELECT /* getThemeList */
             `seq`,
+            `store_name` AS `storeName`,
             `merchant_code` AS `merchantCode`,
             `theme_code` AS `themeCode`,
             `theme_name` AS `themeName`,
@@ -45,13 +50,14 @@
             `mod_date` AS `modDate`
         FROM
             `merchant`
+        WHERE
+            `store_name` = #{storeName}
         ORDER BY
             `merchant_code`;
     </select>
 
     <insert id="registerHint" parameterType="com.samsan.xcape.vo.HintVO">
         INSERT INTO `hint`(
---             `store_name`,
             `message1`,
             `message2`,
             `theme_code`,
@@ -61,7 +67,6 @@
             `merchant_name`
             )
             VALUES(
---                 #{storeName},
                 #{message1},
                 #{message2},
                 #{themeCode},
@@ -77,24 +82,16 @@
                 ),
                 #{key},
                 #{merchantCode},
-                #{merchantName}
+                (
+                    SELECT
+                        DISTINCT merchant_name AS merchantName
+                    FROM
+                        merchant
+                    WHERE
+                        merchant_code = #{merchantCode}
+                )
             )
     </insert>
-
-<!--    <update id="updateHint" parameterType="com.samsan.xcape.vo.HintVO">-->
-<!--        UPDATE-->
-<!--            `hint`-->
-<!--        SET-->
-<!--            `key` = #{key},-->
-<!--            `message1` = #{message1},-->
-<!--            `message2` = #{message2},-->
-<!--            `use` = #{use},-->
-<!--            `theme` = #{theme},-->
-<!--            `merchant_code` = #{merchantCode},-->
-<!--            `merchant_name` = #{merchantName}-->
-<!--        WHERE-->
-<!--              (`seq` = #{seq});-->
-<!--    </update>-->
 
     <update id="modifyMessage">
         UPDATE
@@ -107,9 +104,7 @@
                 `message2` = #{message2}
             </if>
         WHERE
-            `seq` = #{seq}
---         AND
---             `store_name` = #{storeName};
+            `seq` = #{seq};
     </update>
 
     <update id="deleteHint">
@@ -118,9 +113,7 @@
         SET
             `use` = 'N'
         WHERE
-            `seq` = #{seq}
---         AND
---             `store_name` = #{storeName};
+            `seq` = #{seq};
     </update>
     
     <select id="getHintCount" resultType="int">
@@ -130,9 +123,7 @@
         FROM
              hint
         WHERE
-              `key` = #{key}
---         AND
---               `store_name` = #{storeName};
+              `key` = #{key};
     </select>
 
     <update id="modifyHintCode">
@@ -141,9 +132,7 @@
         SET
             `key` = #{key}
         WHERE
-            `seq` = #{seq}
---         AND
---             `store_name` = #{storeName};
+            `seq` = #{seq};
     </update>
 
 </mapper>

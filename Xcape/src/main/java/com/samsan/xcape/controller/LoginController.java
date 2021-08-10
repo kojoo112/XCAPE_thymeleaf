@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -28,16 +30,21 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String login(String code, HttpServletRequest request) {
+    public String login(String code, HttpServletRequest request, HttpServletResponse response) {
         // 1번 인증코드 요청 전달
         TokenWithUserIdVO tokenWithUserIdVO = userService.getAccessToken(code);
         // 2번 인증코드로 토큰 전달
         UserVO userInfo = userService.getUserInfo(tokenWithUserIdVO);
         HttpSession session = request.getSession();
+        Cookie cookie = new Cookie(XcapeConstant.ACCESS_TOKEN, tokenWithUserIdVO.getAccessToken());
+        cookie.setMaxAge(7200);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        response.addCookie(cookie);
 
         if (userInfo.getEmail() != null) {
             session.setAttribute(XcapeConstant.USER_INFO, userInfo);
-            session.setAttribute(XcapeConstant.ACCESS_TOKEN, tokenWithUserIdVO.getAccessToken());
         }
 
         return "redirect:/main";
