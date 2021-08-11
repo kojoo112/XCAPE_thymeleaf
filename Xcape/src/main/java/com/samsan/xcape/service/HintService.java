@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface HintService {
 
-    List<HintVO> getHintList(HintVO hintVO);
+    List<HintVO> getHintList(String merchantCode, String themeCode);
 
     List<MerchantVO> getMerchantList(UserVO userVO);
 

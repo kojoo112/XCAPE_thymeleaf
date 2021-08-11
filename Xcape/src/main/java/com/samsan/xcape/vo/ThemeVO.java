@@ -1,12 +1,13 @@
 package com.samsan.xcape.vo;
 
+import com.samsan.xcape.enums.Merchant;
 import lombok.Data;
 
 @Data
 public class ThemeVO {
     private int seq;
     private String storeName;
-    private String merchantCode;
+    private Merchant merchant;
     private String themeCode;
     private String themeName;
     private char use;

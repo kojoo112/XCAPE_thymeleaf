@@ -2,16 +2,13 @@ package com.samsan.xcape.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.samsan.xcape.service.UserService;
 import com.samsan.xcape.util.CookieUtil;
 import com.samsan.xcape.util.XcapeConstant;
 import com.samsan.xcape.vo.HintVO;
-import com.samsan.xcape.vo.MerchantVO;
 import com.samsan.xcape.vo.ThemeVO;
 import com.samsan.xcape.vo.UserVO;
-import jdk.nashorn.internal.ir.ObjectNode;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -67,15 +64,18 @@ public class ApiFilter implements Filter {
 
         switch (url) {
             case XcapeConstant.GET_THEME_LIST:
-                getThemeList(resContent, validateUserInfo);
+//                getThemeList(resContent, validateUserInfo);
+                log.info("apiThemeList");
+                break;
             case XcapeConstant.GET_HINT_LIST:
-                getHintList(resContent, validateUserInfo);
+//                getHintList(resContent, validateUserInfo);
+                log.info("apiHintList");
                 break;
             case XcapeConstant.REGISTER_HINT:
-                registerHint(reqContent, validateUserInfo);
+//                registerHint(reqContent, validateUserInfo);
                 break;
             case XcapeConstant.MODIFY_HINT_CODE:
-                modifyHintCode(reqContent, validateUserInfo);
+//                modifyHintCode(reqContent, validateUserInfo, session);
                 break;
             default:
                 log.info("예외");
@@ -97,12 +97,14 @@ public class ApiFilter implements Filter {
         }
     }
 
-    private void modifyHintCode(String reqContent, UserVO validateUserInfo) throws JsonProcessingException {
+    private void modifyHintCode(String reqContent, UserVO validateUserInfo, HttpSession session) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         HintVO registerHint = objectMapper.readValue(reqContent, HintVO.class);
         if(!registerHint.getStoreName().equals(validateUserInfo.getStoreName())){
             log.info("같지않음.");
         }
+
+        session.invalidate();
     }
 
     public UserVO validateUserInfo(String token, UserVO sessionUser){
@@ -125,9 +127,11 @@ public class ApiFilter implements Filter {
         return userService.findUserByEmail(sessionUser.getEmail());
     }
 
-    public void getHintList(String content, UserVO validateUserInfo) throws JsonProcessingException {
+    public void getHintList(String resContent, UserVO validateUserInfo) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        List<HintVO> hintVOLists = objectMapper.readValue(content, new TypeReference<List<HintVO>>() {});
+//        HintVO[] hintVOLists = objectMapper.readValue(resContent, HintVO[].class);
+        List<HintVO> hintVOLists = objectMapper.readValue(resContent, objectMapper.getTypeFactory().constructCollectionType(List.class, HintVO.class));
+//        List<HintVO> hintVOLists = objectMapper.readValue(resContent, new TypeReference<List<HintVO >>(){});
         for(HintVO hintVO : hintVOLists){
             if(!hintVO.getStoreName().equals(validateUserInfo.getStoreName())){
                 log.info(">>>>>>>>>>>>>>>>>>>>>>> 같지않음.");

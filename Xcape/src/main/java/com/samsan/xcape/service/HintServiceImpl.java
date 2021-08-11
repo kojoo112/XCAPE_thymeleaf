@@ -20,8 +20,8 @@ public class HintServiceImpl implements HintService{
     }
 
     @Override
-    public List<HintVO> getHintList(HintVO hintVO) {
-        return hintDAO.getHintList(hintVO);
+    public List<HintVO> getHintList(String merchantCode, String themeCode) {
+        return hintDAO.getHintList(merchantCode, themeCode);
     }
 
     @Override

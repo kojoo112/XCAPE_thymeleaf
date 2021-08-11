@@ -3,13 +3,14 @@
 /**
  *  시작시 힌트리스트 받아오는 함수
  */
-(function (){
+window.onload = function (){
+    console.log(`시작`);
     let object = {
         merchantCode: $("#merchant").val(),
         themeCode: $("#theme").val()
     }
     getHintList(object);
-})();
+};
 
 /**
  * 힌트리스트 조회
@@ -41,39 +42,36 @@ function getHintList(object){
  */
 const getThemeList = () => {
     let merchant = $('#merchant').val();
-    $('#merchant').change(function () {
-        $.ajax({
-            type: 'GET',
-            url: '/api/theme/list',
-            data: 'merchantCode=' + merchant,
-            success: function (data) {
-                $('#theme').empty();
-                $.each(data, function (key, value) {
-                    let content = $(`<option value="${value.themeCode}">${value.themeName}</option>`);
-                    $('#theme').append(content);
-                })
-            },
-            error: console.log
-        });
-    })
+    $.ajax({
+        type: 'GET',
+        url: '/api/theme/list',
+        data: 'merchantCode=' + merchant,
+        success: function (data) {
+            $('#theme').empty();
+            $.each(data, function (key, value) {
+                let content = $(`<option value="${value.themeCode}">${value.themeName}</option>`);
+                $('#theme').append(content);
+            })
+            let getHintObject = {
+                merchantCode: merchant,
+                themeCode: $("#theme").val()
+            }
+            getHintList(getHintObject);
+        },
+        error: console.log
+    });
 }
 
 /**
- * merchant, theme 변경시 힌트리스트 조회
+ * theme 변경시 힌트리스트 조회
  */
-$("#merchant").change(function () {
-    let object = {
-        merchantCode: $("#merchant").val(),
-        themeCode: 'THM001'
-    }
-    getHintList(object);
-})
 
 $("#theme").change(function () {
     let object = {
         merchantCode: $("#merchant").val(),
         themeCode: $("#theme").val()
     }
+    console.log(object);
     getHintList(object);
 })
 

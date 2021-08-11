@@ -1,7 +1,12 @@
 package com.samsan.xcape.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.Optional;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @Getter
@@ -32,4 +37,11 @@ public enum Merchant {
 
         return null;
     }
+
+//    @JsonCreator
+//    public static Merchant findValue(@JsonProperty("merchantCode") String merchantCode, @JsonProperty("merchantName") String merchantName){
+//        return Arrays.stream(Merchant.values()).filter(merchant -> merchant.merchantCode.equals(merchantCode) &&
+//                merchant.merchantName.equals(merchantName)).findFirst().get();
+//    }
+
 }

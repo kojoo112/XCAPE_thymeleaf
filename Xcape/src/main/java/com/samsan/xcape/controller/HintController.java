@@ -39,8 +39,8 @@ public class HintController {
 
     @GetMapping("/getHintList")
     @ResponseBody
-    public List<HintVO> getHintList(HintVO hintVO){
-        List<HintVO> hintList = hintService.getHintList(hintVO);
+    public List<HintVO> getHintList(String merchantCode, String themeCode){
+        List<HintVO> hintList = hintService.getHintList(merchantCode, themeCode);
         return hintList;
     }
 

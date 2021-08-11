@@ -1,9 +1,11 @@
 package com.samsan.xcape.vo;
 
 import com.samsan.xcape.enums.Merchant;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class MerchantVO {
     private int seq;
     private String storeName;

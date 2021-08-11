@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.samsan.xcape.dao.HintDAO">
 
-    <select id="getHintList" parameterType="com.samsan.xcape.vo.HintVO" resultType="com.samsan.xcape.vo.HintVO" >
+    <select id="getHintList" resultType="com.samsan.xcape.vo.HintVO">
         SELECT
                `seq`,
                `store_name` AS `storeName`,
-               `merchant_code` AS `merchantCode`,
-               `merchant_name` AS `merchantName`,
+               `merchant_code` AS `merchant`,
                `theme_code` AS `themeCode`,
                `theme_name` AS `themeName`,
                `key`,
@@ -30,7 +29,7 @@
         SELECT /* getThemeList */
             `seq`,
             `store_name` AS `storeName`,
-            `merchant_code` AS `merchantCode`,
+            `merchant_code` AS `merchant`,
             `theme_code` AS `themeCode`,
             `theme_name` AS `themeName`,
             `reg_date` AS `regDate`,
@@ -63,8 +62,7 @@
             `theme_code`,
             `theme_name`,
             `key`,
-            `merchant_code`,
-            `merchant_name`
+            `merchant_code`
             )
             VALUES(
                 #{message1},
@@ -81,15 +79,7 @@
                         theme_code = #{themeCode}
                 ),
                 #{key},
-                #{merchantCode},
-                (
-                    SELECT
-                        DISTINCT merchant_name AS merchantName
-                    FROM
-                        merchant
-                    WHERE
-                        merchant_code = #{merchantCode}
-                )
+                #{merchantCode}
             )
     </insert>
 
