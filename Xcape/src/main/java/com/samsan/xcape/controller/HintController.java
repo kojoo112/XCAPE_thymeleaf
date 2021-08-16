@@ -4,7 +4,7 @@ import com.samsan.xcape.service.HintService;
 import com.samsan.xcape.vo.HintVO;
 import com.samsan.xcape.vo.MerchantVO;
 import com.samsan.xcape.vo.ThemeVO;
-import com.samsan.xcape.vo.UserVO;
+import com.samsan.xcape.vo.XcapeUser;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +32,8 @@ public class HintController {
 
     @GetMapping("/merchant/list")
     @ResponseBody
-    public List<MerchantVO> getMerchantList(UserVO userVO){
-        List<MerchantVO> merchantVOList = hintService.getMerchantList(userVO);
+    public List<MerchantVO> getMerchantList(XcapeUser xcapeUser){
+        List<MerchantVO> merchantVOList = hintService.getMerchantList(xcapeUser);
         return merchantVOList;
     }
 

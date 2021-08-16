@@ -3,7 +3,7 @@ package com.samsan.xcape.service;
 import com.samsan.xcape.vo.HintVO;
 import com.samsan.xcape.vo.MerchantVO;
 import com.samsan.xcape.vo.ThemeVO;
-import com.samsan.xcape.vo.UserVO;
+import com.samsan.xcape.vo.XcapeUser;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public interface HintService {
 
     List<HintVO> getHintList(HintVO hintVO);
 
-    List<MerchantVO> getMerchantList(UserVO userVO);
+    List<MerchantVO> getMerchantList(XcapeUser xcapeUser);
 
     void registerHint(HintVO hintVO);
 

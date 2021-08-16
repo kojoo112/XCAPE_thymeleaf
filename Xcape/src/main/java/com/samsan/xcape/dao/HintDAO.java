@@ -3,7 +3,7 @@ package com.samsan.xcape.dao;
 import com.samsan.xcape.vo.HintVO;
 import com.samsan.xcape.vo.MerchantVO;
 import com.samsan.xcape.vo.ThemeVO;
-import com.samsan.xcape.vo.UserVO;
+import com.samsan.xcape.vo.XcapeUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +15,7 @@ public interface HintDAO {
 
     List<HintVO> getHintList(HintVO hintVO);
 
-    List<MerchantVO> getMerchantList(UserVO userVO);
+    List<MerchantVO> getMerchantList(XcapeUser xcapeUser);
 
     void registerHint(HintVO hintVO);
 

@@ -1,8 +1,5 @@
 package com.samsan.xcape.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.samsan.xcape.dao.UserDAO;
 import com.samsan.xcape.vo.*;
 import lombok.extern.log4j.Log4j2;
@@ -15,7 +12,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -46,12 +43,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void signUp(UserVO userVO) {
-        userDAO.signUp(userVO);
+    public XcapeUser signUp(XcapeUser xcapeUser) {
+        userDAO.signUp(xcapeUser);
+        return xcapeUser;
     }
 
     @Override
-    public UserVO findUserByEmail(String email) {
+    public XcapeUser findUserByEmail(String email) {
         return userDAO.findUserByEmail(email);
     }
 
@@ -99,7 +97,7 @@ public class UserServiceImpl implements UserService{
      *
      */
     @Override
-    public UserVO getUserInfo(TokenWithUserIdVO tokenWithUserIdVO) {
+    public XcapeUser getUserInfo(TokenWithUserIdVO tokenWithUserIdVO) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setBearerAuth(tokenWithUserIdVO.getAccessToken());
@@ -122,7 +120,7 @@ public class UserServiceImpl implements UserService{
                 return findUserByEmail(getKakaoUserEmail);
             } else {
                 // 신규가입
-                UserVO userInfo = UserVO.builder()
+                XcapeUser userInfo = XcapeUser.builder()
                         .nickname(getKakaoUserNickname)
                         .email(getKakaoUserEmail)
                         .id(getKakaoUserId)
@@ -194,13 +192,13 @@ public class UserServiceImpl implements UserService{
      * @return
      */
     @Override
-    public String renewAccessTokenByRefreshToken(UserVO userVO) {
+    public String renewAccessTokenByRefreshToken(XcapeUser xcapeUser) {
         try {
             MultiValueMap<String, Object> mmap = new LinkedMultiValueMap<String, Object>();
 
             mmap.add("grant_type", "refresh_token"); //필수 고정값
             mmap.add("client_id", "aa8169c90be18a546cbcbff22067ea51"); //카카오 rest_key
-            mmap.add("refresh_token", userVO.getRefreshToken()); //응답받은 리턴URL
+            mmap.add("refresh_token", xcapeUser.getRefreshToken()); //응답받은 리턴URL
 
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED + ";charset=utf-8"); //헤더지정
@@ -212,8 +210,8 @@ public class UserServiceImpl implements UserService{
             String renewRefreshToken = result.getBody().getRefresh_token();
             String accessToken = result.getBody().getAccess_token();
 
-            if(userVO.getRefreshToken() != renewRefreshToken) {
-                UserVO existUser = findUserByEmail(userVO.getEmail());
+            if(xcapeUser.getRefreshToken() != renewRefreshToken) {
+                XcapeUser existUser = findUserByEmail(xcapeUser.getEmail());
                 TokenWithUserIdVO tokenWithUserIdVO = new TokenWithUserIdVO();
                 tokenWithUserIdVO.setId(existUser.getId());
                 tokenWithUserIdVO.setRefreshToken(renewRefreshToken);
@@ -234,7 +232,7 @@ public class UserServiceImpl implements UserService{
      * @return
      */
     @Override
-    public boolean isKakaoAuthUser(String accessToken, UserVO sessionUser) {
+    public boolean isKakaoAuthUser(String accessToken, XcapeUser sessionUser) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setBearerAuth(accessToken);
@@ -263,5 +261,10 @@ public class UserServiceImpl implements UserService{
             log.info(">>>>>> isKakaoAuthUser = " + e);
         }
         return false;
+    }
+
+    @Override
+    public Optional<XcapeUser> findByEmail(String email) {
+        return Optional.ofNullable(findUserByEmail(email));
     }
 }

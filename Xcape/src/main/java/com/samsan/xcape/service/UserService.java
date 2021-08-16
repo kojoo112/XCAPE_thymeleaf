@@ -1,31 +1,32 @@
 package com.samsan.xcape.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.samsan.xcape.vo.RenewAccessTokenVO;
 import com.samsan.xcape.vo.TokenWithUserIdVO;
-import com.samsan.xcape.vo.UserVO;
+import com.samsan.xcape.vo.XcapeUser;
 import org.springframework.http.HttpStatus;
+
+import java.util.Optional;
 
 public interface UserService {
 
-    public int getUserCount(String email);
+    int getUserCount(String email);
 
-    public void signUp(UserVO userVO);
+    XcapeUser signUp(XcapeUser xcapeUser);
 
-    public UserVO findUserByEmail(String email);
+    XcapeUser findUserByEmail(String email);
 
-    public UserVO getUserInfo(TokenWithUserIdVO tokenVO);
+    XcapeUser getUserInfo(TokenWithUserIdVO tokenVO);
 
-    public TokenWithUserIdVO getAccessToken(String code);
+    TokenWithUserIdVO getAccessToken(String code);
 
-    public void kakaoLogout(String accessToken);
+    void kakaoLogout(String accessToken);
 
-    public void registRefreshToken(TokenWithUserIdVO refreshToken);
+    void registRefreshToken(TokenWithUserIdVO refreshToken);
 
-    public HttpStatus verifyAccessToken(String accessToken);
+    HttpStatus verifyAccessToken(String accessToken);
 
-    public String renewAccessTokenByRefreshToken(UserVO userVO);
+    String renewAccessTokenByRefreshToken(XcapeUser xcapeUser);
 
-    public boolean isKakaoAuthUser(String accessToken, UserVO sessionUser);
+    boolean isKakaoAuthUser(String accessToken, XcapeUser sessionUser);
 
+    Optional<XcapeUser> findByEmail(String email);
 }

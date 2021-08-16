@@ -5,7 +5,7 @@ import com.samsan.xcape.util.RandomKeyValue;
 import com.samsan.xcape.vo.HintVO;
 import com.samsan.xcape.vo.MerchantVO;
 import com.samsan.xcape.vo.ThemeVO;
-import com.samsan.xcape.vo.UserVO;
+import com.samsan.xcape.vo.XcapeUser;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +25,8 @@ public class HintServiceImpl implements HintService{
     }
 
     @Override
-    public List<MerchantVO> getMerchantList(UserVO userVO) {
-        return hintDAO.getMerchantList(userVO);
+    public List<MerchantVO> getMerchantList(XcapeUser xcapeUser) {
+        return hintDAO.getMerchantList(xcapeUser);
     }
 
     @Override

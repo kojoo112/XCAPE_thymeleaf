@@ -34,7 +34,7 @@ public class LoginController {
         // 1번 인증코드 요청 전달
         TokenWithUserIdVO tokenWithUserIdVO = userService.getAccessToken(code);
         // 2번 인증코드로 토큰 전달
-        UserVO userInfo = userService.getUserInfo(tokenWithUserIdVO);
+        XcapeUser userInfo = userService.getUserInfo(tokenWithUserIdVO);
         HttpSession session = request.getSession();
         Cookie cookie = new Cookie(XcapeConstant.ACCESS_TOKEN, tokenWithUserIdVO.getAccessToken());
         cookie.setMaxAge(7200);
@@ -61,7 +61,7 @@ public class LoginController {
     @GetMapping("/main")
     public String main(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
-        UserVO userInfo = (UserVO) session.getAttribute(XcapeConstant.USER_INFO);
+        XcapeUser userInfo = (XcapeUser) session.getAttribute(XcapeConstant.USER_INFO);
 
         List<MerchantVO> merchantList = hintService.getMerchantList(userInfo);
         List<ThemeVO> themeList = hintService.getThemeList("MRC001");
@@ -75,5 +75,10 @@ public class LoginController {
     @GetMapping("/signup")
     public String signup() {
         return "signup";
+    }
+
+    @GetMapping("/")
+    public String index() {
+        return "index";
     }
 }
