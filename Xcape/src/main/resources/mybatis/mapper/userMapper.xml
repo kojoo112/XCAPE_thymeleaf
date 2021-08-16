@@ -33,6 +33,7 @@
             `store_name` AS `storeName`,
             `email`,
             `nickname`,
+            `refresh_token` AS `refreshToken`,
             `cre_date` AS `creDate`,
             `mod_date` AS `modDate`,
             `role`

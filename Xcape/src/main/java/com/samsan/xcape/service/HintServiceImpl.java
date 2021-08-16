@@ -20,8 +20,8 @@ public class HintServiceImpl implements HintService{
     }
 
     @Override
-    public List<HintVO> getHintList(String merchantCode, String themeCode) {
-        return hintDAO.getHintList(merchantCode, themeCode);
+    public List<HintVO> getHintList(HintVO hintVO) {
+        return hintDAO.getHintList(hintVO);
     }
 
     @Override
@@ -40,8 +40,8 @@ public class HintServiceImpl implements HintService{
     }
 
     @Override
-    public List<ThemeVO> getThemeList(String merchantCode, String storeName) {
-        return hintDAO.getThemeList(merchantCode, storeName);
+    public List<ThemeVO> getThemeList(String merchantCode) {
+        return hintDAO.getThemeList(merchantCode);
     }
 
     private boolean isKeyOverlap(String key){
@@ -55,7 +55,6 @@ public class HintServiceImpl implements HintService{
 
     @Override
     public void modifyMessage(HintVO hintVO) {
-//        CustomXssEscape.SetEscapeMessage(hintVO);
         hintDAO.modifyMessage(hintVO);
     }
 

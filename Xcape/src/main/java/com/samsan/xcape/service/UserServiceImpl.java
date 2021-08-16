@@ -189,29 +189,38 @@ public class UserServiceImpl implements UserService{
 
     /**
      *
-     * @param userId
-     * @param refreshToken
+     * @param
+     * @param
      * @return
      */
     @Override
-    public String renewAccessTokenByRefreshToken(String userId, String refreshToken) {
+    public String renewAccessTokenByRefreshToken(UserVO userVO) {
         try {
+            MultiValueMap<String, Object> mmap = new LinkedMultiValueMap<String, Object>();
+
+            mmap.add("grant_type", "refresh_token"); //필수 고정값
+            mmap.add("client_id", "aa8169c90be18a546cbcbff22067ea51"); //카카오 rest_key
+            mmap.add("refresh_token", userVO.getRefreshToken()); //응답받은 리턴URL
+
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED + ";charset=utf-8"); //헤더지정
+            HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<MultiValueMap<String,Object>>(mmap, headers);
 
-            HttpEntity httpEntity = new HttpEntity(headers);
 
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<RenewAccessTokenVO> result = restTemplate.postForEntity("https://kauth.kakao.com/oauth/token", httpEntity, RenewAccessTokenVO.class);
             String renewRefreshToken = result.getBody().getRefresh_token();
+            String accessToken = result.getBody().getAccess_token();
 
-            if(renewRefreshToken!= refreshToken){
+            if(userVO.getRefreshToken() != renewRefreshToken) {
+                UserVO existUser = findUserByEmail(userVO.getEmail());
                 TokenWithUserIdVO tokenWithUserIdVO = new TokenWithUserIdVO();
+                tokenWithUserIdVO.setId(existUser.getId());
                 tokenWithUserIdVO.setRefreshToken(renewRefreshToken);
-                tokenWithUserIdVO.setId(userId);
                 registRefreshToken(tokenWithUserIdVO);
             }
-            return result.getBody().getAccess_token();
+
+            return accessToken;
         } catch (Exception e){
             log.info(">>>>>> renewAccessTokenByRefreshToken = " + e);
         }
@@ -239,6 +248,7 @@ public class UserServiceImpl implements UserService{
             String getKakaoUserEmail = kakaoUserResponse.getKakao_account().getEmail();
             String getKakaoUserNickname = kakaoUserResponse.getProperties().getNickname();
             String getKakaoUserId = kakaoUserResponse.getId();
+
 
             if(getKakaoUserEmail.equals(sessionUser.getEmail())){
                 if(getKakaoUserId.equals(sessionUser.getId())){

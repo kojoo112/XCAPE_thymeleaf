@@ -13,15 +13,13 @@ import java.util.List;
 @Mapper
 public interface HintDAO {
 
-    List<HintVO> getHintList(String merchantCode, String themeCode);
+    List<HintVO> getHintList(HintVO hintVO);
 
     List<MerchantVO> getMerchantList(UserVO userVO);
 
     void registerHint(HintVO hintVO);
 
-    void updateHint(HintVO hintVO);
-
-    List<ThemeVO> getThemeList(String merchantCode, String storeName);
+    List<ThemeVO> getThemeList(String merchantCode);
 
     int getHintCount(String key);
 

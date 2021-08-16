@@ -1,6 +1,7 @@
 package com.samsan.xcape.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.samsan.xcape.vo.RenewAccessTokenVO;
 import com.samsan.xcape.vo.TokenWithUserIdVO;
 import com.samsan.xcape.vo.UserVO;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public interface UserService {
 
     public HttpStatus verifyAccessToken(String accessToken);
 
-    public String renewAccessTokenByRefreshToken(String userId, String refreshToken);
+    public String renewAccessTokenByRefreshToken(UserVO userVO);
 
     public boolean isKakaoAuthUser(String accessToken, UserVO sessionUser);
 

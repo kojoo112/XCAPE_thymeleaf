@@ -3,6 +3,7 @@ package com.samsan.xcape.filter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.samsan.xcape.service.UserService;
 import com.samsan.xcape.util.CookieUtil;
 import com.samsan.xcape.util.XcapeConstant;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
@@ -51,63 +53,50 @@ public class ApiFilter implements Filter {
         //후처리
         //req
         HttpSession session = requestWrapper.getSession();
-        UserVO userVO = (UserVO) session.getAttribute(XcapeConstant.USER_INFO);
 
         String reqContent = new String(requestWrapper.getContentAsByteArray());
-        log.info("request status : {}, requestBody : {}", url, reqContent);
+//        log.info("request status : {}, requestBody : {}", url, reqContent);
 
         String resContent = new String(responseWrapper.getContentAsByteArray());
         //여기서 내용을 다 빼버리기 떄문에 밑에 copyBodyToResponse() 사용!
         int httpStatus = responseWrapper.getStatus();
 
-        UserVO validateUserInfo = validateUserInfo(token, userVO);
+        UserVO validateUserInfo = validateUserInfo(token, session);
 
         switch (url) {
-            case XcapeConstant.GET_THEME_LIST:
-//                getThemeList(resContent, validateUserInfo);
-                log.info("apiThemeList");
+            case XcapeConstant.GET_MERCHANT_LIST:
+                log.info(">>>> getMerhcnatList >>>");
                 break;
             case XcapeConstant.GET_HINT_LIST:
-//                getHintList(resContent, validateUserInfo);
-                log.info("apiHintList");
+                log.info(">>>> getHintList >>>");
+                break;
+            case XcapeConstant.GET_THEME_LIST:
+                log.info(">>>> getThemeList >>>");
                 break;
             case XcapeConstant.REGISTER_HINT:
-//                registerHint(reqContent, validateUserInfo);
+                registerHint(reqContent, validateUserInfo);
                 break;
             case XcapeConstant.MODIFY_HINT_CODE:
-//                modifyHintCode(reqContent, validateUserInfo, session);
+                modifyHintCode(reqContent, validateUserInfo);
+                break;
+            case XcapeConstant.MODIFY_MESSAGE:
+                modifyMessage(reqContent, validateUserInfo);
+                break;
+            case XcapeConstant.DELETE_HINT:
+                deleteHint(reqContent, validateUserInfo);
                 break;
             default:
-                log.info("예외");
+                ((HttpServletResponse) response).sendError(HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
-
-        log.info(resContent);
+//        log.info(resContent);
         responseWrapper.copyBodyToResponse();
+
 
         log.info("response status : {}, responseBody : {}", httpStatus, resContent);
     }
 
-    private void getThemeList(String resContent, UserVO validateUserInfo) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<ThemeVO> themeVOList = objectMapper.readValue(resContent, new TypeReference<List<ThemeVO>>() {});
-        for(ThemeVO themeVO : themeVOList){
-            if(!themeVO.getStoreName().equals(validateUserInfo.getStoreName())){
-                // 에러처리
-            }
-        }
-    }
-
-    private void modifyHintCode(String reqContent, UserVO validateUserInfo, HttpSession session) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        HintVO registerHint = objectMapper.readValue(reqContent, HintVO.class);
-        if(!registerHint.getStoreName().equals(validateUserInfo.getStoreName())){
-            log.info("같지않음.");
-        }
-
-        session.invalidate();
-    }
-
-    public UserVO validateUserInfo(String token, UserVO sessionUser){
+    public UserVO validateUserInfo(String token, HttpSession session){
+        UserVO userVO = (UserVO) session.getAttribute(XcapeConstant.USER_INFO);
         HttpStatus httpStatus = userService.verifyAccessToken(token);
 
         if (httpStatus != HttpStatus.OK && httpStatus != HttpStatus.UNAUTHORIZED) {
@@ -115,34 +104,50 @@ public class ApiFilter implements Filter {
 //            return false;
         } else if (httpStatus == HttpStatus.UNAUTHORIZED) {
             // 401 에러인 경우
-            token = userService.renewAccessTokenByRefreshToken(sessionUser.getId(), sessionUser.getRefreshToken());
+            token = userService.renewAccessTokenByRefreshToken(userVO);
         }
 
         // 카카오의 정보와 세션 userInfo가 같은지 검사
-        if (!userService.isKakaoAuthUser(token, sessionUser)) {
-//            response.sendError(HttpStatus.BAD_REQUEST.value());
-//            return false;
+        if (!userService.isKakaoAuthUser(token, userVO)) {
+            session.invalidate();
         }
 
-        return userService.findUserByEmail(sessionUser.getEmail());
+        return userService.findUserByEmail(userVO.getEmail());
     }
 
-    public void getHintList(String resContent, UserVO validateUserInfo) throws JsonProcessingException {
+    private boolean deleteHint(String reqContent, UserVO validateUserInfo) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-//        HintVO[] hintVOLists = objectMapper.readValue(resContent, HintVO[].class);
-        List<HintVO> hintVOLists = objectMapper.readValue(resContent, objectMapper.getTypeFactory().constructCollectionType(List.class, HintVO.class));
-//        List<HintVO> hintVOLists = objectMapper.readValue(resContent, new TypeReference<List<HintVO >>(){});
-        for(HintVO hintVO : hintVOLists){
-            if(!hintVO.getStoreName().equals(validateUserInfo.getStoreName())){
-                log.info(">>>>>>>>>>>>>>>>>>>>>>> 같지않음.");
-            }
+        HintVO hintVO = objectMapper.readValue(reqContent, HintVO.class);
+        if(!hintVO.getStoreName().equals(validateUserInfo.getStoreName())){
+            return false;
         }
+        return true;
     }
 
-    public void registerHint(String content, UserVO userVO) throws JsonProcessingException {
+    private boolean modifyMessage(String reqContent, UserVO validateUserInfo) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-//        String result = objectMapper.writeValue(content, userVO.getStoreName());
-//        log.info(result);
+        HintVO hintVO = objectMapper.readValue(reqContent, HintVO.class);
+        if(!hintVO.getStoreName().equals(validateUserInfo.getStoreName())){
+            return false;
+        }
+        return true;
     }
 
+    private boolean modifyHintCode(String reqContent, UserVO validateUserInfo) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        HintVO registerHint = objectMapper.readValue(reqContent, HintVO.class);
+        if(!registerHint.getStoreName().equals(validateUserInfo.getStoreName())){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean registerHint(String reqContent, UserVO validateUserInfo) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        HintVO hintVO = objectMapper.readValue(reqContent, HintVO.class);
+        if(!hintVO.getStoreName().equals(validateUserInfo.getStoreName())){
+            return false;
+        }
+        return true;
+    }
 }

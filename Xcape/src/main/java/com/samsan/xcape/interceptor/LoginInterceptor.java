@@ -3,6 +3,7 @@ package com.samsan.xcape.interceptor;
 import com.samsan.xcape.service.UserService;
 import com.samsan.xcape.util.CookieUtil;
 import com.samsan.xcape.util.XcapeConstant;
+import com.samsan.xcape.vo.RenewAccessTokenVO;
 import com.samsan.xcape.vo.UserVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -28,22 +29,22 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         UserVO userVO = (UserVO) session.getAttribute(XcapeConstant.USER_INFO);
-        String token = CookieUtil.getCookie(request, XcapeConstant.ACCESS_TOKEN);
+        String accessToken = CookieUtil.getCookie(request, XcapeConstant.ACCESS_TOKEN);
 
         if (!ObjectUtils.isEmpty(userVO)) {
             // 현재 AccessToken이 유효한지 검사
-            HttpStatus httpStatus = userService.verifyAccessToken(token);
+            HttpStatus httpStatus = userService.verifyAccessToken(accessToken);
 
             if (httpStatus != HttpStatus.OK && httpStatus != HttpStatus.UNAUTHORIZED) {
                 // 400 에러인 경우
                 return false;
             } else if (httpStatus == HttpStatus.UNAUTHORIZED) {
                 // 401 에러인 경우
-                token = userService.renewAccessTokenByRefreshToken(userVO.getId(), userVO.getRefreshToken());
+                accessToken = userService.renewAccessTokenByRefreshToken(userVO);
             }
 
             // 카카오의 정보와 세션 userInfo가 같은지 검사
-            if (!userService.isKakaoAuthUser(token, userVO)) {
+            if (!userService.isKakaoAuthUser(accessToken, userVO)) {
                 response.sendError(HttpStatus.BAD_REQUEST.value());
                 return false;
             }

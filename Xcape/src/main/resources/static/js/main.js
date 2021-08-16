@@ -4,9 +4,8 @@
  *  시작시 힌트리스트 받아오는 함수
  */
 window.onload = function (){
-    console.log(`시작`);
     let object = {
-        merchantCode: $("#merchant").val(),
+        merchant: $("#merchant").val(),
         themeCode: $("#theme").val()
     }
     getHintList(object);
@@ -53,7 +52,7 @@ const getThemeList = () => {
                 $('#theme').append(content);
             })
             let getHintObject = {
-                merchantCode: merchant,
+                merchant: merchant,
                 themeCode: $("#theme").val()
             }
             getHintList(getHintObject);
@@ -68,10 +67,9 @@ const getThemeList = () => {
 
 $("#theme").change(function () {
     let object = {
-        merchantCode: $("#merchant").val(),
+        merchant: $("#merchant").val(),
         themeCode: $("#theme").val()
     }
-    console.log(object);
     getHintList(object);
 })
 
@@ -85,6 +83,7 @@ $('#hintRegisterButton').click(function(){
         themeCode: $('#theme').val(),
         key: "",
         merchant: $('#merchant').val(),
+        storeName: storeName
     }
     if(object.message1 != "" || object.message2 != "") {
         $.ajax({
@@ -93,12 +92,12 @@ $('#hintRegisterButton').click(function(){
             contentType: 'application/json',
             data: JSON.stringify(object),
             success: function () {
-                let object = {
-                    merchantCode: $("#merchant").val(),
+                let getHintObject = {
+                    merchant: $("#merchant").val(),
                     themeCode: $("#theme").val()
                 }
                 alert('🌈 힌트가 성공적으로 등록되었습니다.');
-                getHintList(object);
+                getHintList(getHintObject);
             },
             error: function (err) {
                 alert('😭 등록에 실패했습니다.');
@@ -114,8 +113,12 @@ $('#hintRegisterButton').click(function(){
  *  힌트 삭제
  */
 const deleteHint = (id) => {
-        let merchantTheme = {
-            merchantCode: $("#merchant").val(),
+        let deleteHintObject = {
+            seq: id,
+            storeName: storeName
+        }
+        let getHintObject = {
+            merchant: $("#merchant").val(),
             themeCode: $("#theme").val()
         }
         if(confirm('힌트를 삭제하시겠습니까?')){
@@ -123,10 +126,10 @@ const deleteHint = (id) => {
                 type: 'POST',
                 url: '/api/deleteHint',
                 contentType: 'application/json',
-                data: JSON.stringify({seq: id}),
+                data: JSON.stringify(deleteHintObject),
                 success: function () {
                     alert('🌈 힌트가 삭제되었습니다.');
-                    getHintList(merchantTheme);
+                    getHintList(getHintObject);
                 },
                 error: function (err){
                     alert('😭 삭제 실패했습니다.');
@@ -136,27 +139,28 @@ const deleteHint = (id) => {
         }
 }
 
-const modifyHint = (seq, name, message, storeName) => {
+const modifyHint = (seq, name, message) => {
     let modifiedMessage = prompt('💻 수정할 내용을 입력해주세요.', message);
+
     if(modifiedMessage != null) {
         if (modifiedMessage != message) {
-            let object = {
+            let modifyMessageObject = {
                 [name]: modifiedMessage,
                 seq: seq,
                 storeName: storeName
             }
-            let merchantTheme = {
-                merchantCode: $("#merchant").val(),
+            let getHintObject = {
+                merchant: $("#merchant").val(),
                 themeCode: $("#theme").val()
             }
             $.ajax({
                 type: 'POST',
                 url: '/api/modifyMessage',
                 contentType: 'application/json',
-                data: JSON.stringify(object),
+                data: JSON.stringify(modifyMessageObject),
                 success: function () {
                     alert('🔥 힌트가 변경되었습니다.');
-                    getHintList(merchantTheme);
+                    getHintList(getHintObject);
                 },
                 error: function (err){
                     alert('😭 변경에 실패했습니다.');
@@ -175,8 +179,8 @@ const modifyHintCode = (seq, key) => {
                 seq: seq,
                 key: modifiedHintCode
             }
-            let merchantTheme = {
-                merchantCode: $("#merchant").val(),
+            let getHintObject = {
+                merchant: $("#merchant").val(),
                 themeCode: $("#theme").val()
             }
             $.ajax({
@@ -186,8 +190,8 @@ const modifyHintCode = (seq, key) => {
                 data: object,
                 statusCode: {
                     200: function () {
-                        alert('🔥 힌트가 변경되었습니다.');
-                        getHintList(merchantTheme);
+                        alert('🔥 힌트코드가 변경되었습니다.');
+                        getHintList(getHintObject);
                     },
                     202: function () {
                         alert('🙅 중복된 힌트코드입니다.');

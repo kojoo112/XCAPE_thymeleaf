@@ -1,10 +1,12 @@
 package com.samsan.xcape.vo;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 public class RenewAccessTokenVO {
     private String access_token;
     private String token_type;

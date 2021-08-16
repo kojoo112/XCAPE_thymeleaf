@@ -18,7 +18,7 @@
         FROM
              `hint`
         WHERE
-              `merchant_code` = #{merchantCode}
+              `merchant_code` = #{merchant.merchantCode}
             AND
               `theme_code` = #{themeCode}
             AND
@@ -62,7 +62,8 @@
             `theme_code`,
             `theme_name`,
             `key`,
-            `merchant_code`
+            `merchant_code`,
+            `store_name`
             )
             VALUES(
                 #{message1},
@@ -74,12 +75,13 @@
                     FROM
                         theme
                     WHERE
-                        merchant_code = #{merchantCode}
+                        merchant_code = #{merchant.merchantCode}
                         AND
                         theme_code = #{themeCode}
                 ),
                 #{key},
-                #{merchantCode}
+                #{merchant.merchantCode},
+                #{storeName}
             )
     </insert>
 
