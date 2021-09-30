@@ -1,14 +1,11 @@
 package com.samsan.xcape.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.samsan.xcape.service.UserService;
 import com.samsan.xcape.util.CookieUtil;
 import com.samsan.xcape.util.XcapeConstant;
 import com.samsan.xcape.vo.HintVO;
-import com.samsan.xcape.vo.ThemeVO;
 import com.samsan.xcape.vo.UserVO;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
@@ -22,8 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Log4j2
 @WebFilter(urlPatterns = "/api/*")
@@ -51,7 +46,6 @@ public class ApiFilter implements Filter {
         String url = requestWrapper.getRequestURI();
 
         //후처리
-        //req
         HttpSession session = requestWrapper.getSession();
 
         String reqContent = new String(requestWrapper.getContentAsByteArray());
@@ -61,11 +55,11 @@ public class ApiFilter implements Filter {
         //여기서 내용을 다 빼버리기 떄문에 밑에 copyBodyToResponse() 사용!
         int httpStatus = responseWrapper.getStatus();
 
-        UserVO validateUserInfo = validateUserInfo(token, session);
+//        UserVO validateUserInfo = validateUserInfo(token, session);
 
         switch (url) {
             case XcapeConstant.GET_MERCHANT_LIST:
-                log.info(">>>> getMerhcnatList >>>");
+                log.info(">>>> getMerchantList >>>");
                 break;
             case XcapeConstant.GET_HINT_LIST:
                 log.info(">>>> getHintList >>>");
@@ -73,17 +67,17 @@ public class ApiFilter implements Filter {
             case XcapeConstant.GET_THEME_LIST:
                 log.info(">>>> getThemeList >>>");
                 break;
-            case XcapeConstant.REGISTER_HINT:
-                registerHint(reqContent, validateUserInfo);
-                break;
             case XcapeConstant.MODIFY_HINT_CODE:
-                modifyHintCode(reqContent, validateUserInfo);
+                log.info(">>>> modifyHintCode");
                 break;
             case XcapeConstant.MODIFY_MESSAGE:
-                modifyMessage(reqContent, validateUserInfo);
+                log.info(">>>> modifyMessage");
                 break;
             case XcapeConstant.DELETE_HINT:
-                deleteHint(reqContent, validateUserInfo);
+                log.info(">>>> deleteHint");
+                break;
+            case XcapeConstant.REGISTER_HINT:
+                log.info(">>>> registerHint");
                 break;
             default:
                 ((HttpServletResponse) response).sendError(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -92,7 +86,7 @@ public class ApiFilter implements Filter {
         responseWrapper.copyBodyToResponse();
 
 
-        log.info("response status : {}, responseBody : {}", httpStatus, resContent);
+//        log.info("response status : {}, responseBody : {}", httpStatus, resContent);
     }
 
     public UserVO validateUserInfo(String token, HttpSession session){
@@ -118,7 +112,7 @@ public class ApiFilter implements Filter {
     private boolean deleteHint(String reqContent, UserVO validateUserInfo) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         HintVO hintVO = objectMapper.readValue(reqContent, HintVO.class);
-        if(!hintVO.getStoreName().equals(validateUserInfo.getStoreName())){
+        if(!hintVO.getCompanyName().equals(validateUserInfo.getCompanyName())){
             return false;
         }
         return true;
@@ -127,16 +121,20 @@ public class ApiFilter implements Filter {
     private boolean modifyMessage(String reqContent, UserVO validateUserInfo) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         HintVO hintVO = objectMapper.readValue(reqContent, HintVO.class);
-        if(!hintVO.getStoreName().equals(validateUserInfo.getStoreName())){
+        if(!hintVO.getCompanyName().equals(validateUserInfo.getCompanyName())){
             return false;
         }
+
         return true;
     }
 
     private boolean modifyHintCode(String reqContent, UserVO validateUserInfo) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        HintVO registerHint = objectMapper.readValue(reqContent, HintVO.class);
-        if(!registerHint.getStoreName().equals(validateUserInfo.getStoreName())){
+        HintVO hintVO = objectMapper.readValue(reqContent, HintVO.class);
+//        if(!VerifyCharacter.VerifyHintCode(hintVO)){
+//            return false;
+//        }
+        if(!hintVO.getCompanyName().equals(validateUserInfo.getCompanyName())){
             return false;
         }
         return true;
@@ -145,7 +143,7 @@ public class ApiFilter implements Filter {
     public boolean registerHint(String reqContent, UserVO validateUserInfo) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         HintVO hintVO = objectMapper.readValue(reqContent, HintVO.class);
-        if(!hintVO.getStoreName().equals(validateUserInfo.getStoreName())){
+        if(!hintVO.getCompanyName().equals(validateUserInfo.getCompanyName())){
             return false;
         }
         return true;

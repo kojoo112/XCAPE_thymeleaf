@@ -14,7 +14,7 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HintVO {
     private int seq;
-    private String storeName;
+    private String companyName;
     private Merchant merchant;
     private String themeCode;
     private String themeName;

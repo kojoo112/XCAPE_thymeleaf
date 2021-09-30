@@ -13,7 +13,7 @@ public class UserVO {
     private int seq;
     private String id;
     private String telephoneNumber;
-    private String storeName;
+    private String companyName;
     private String role;
     private String refreshToken;
     private String nickname;

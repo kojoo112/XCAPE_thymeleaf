@@ -1,8 +1,5 @@
 package com.samsan.xcape.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.samsan.xcape.dao.UserDAO;
 import com.samsan.xcape.vo.*;
 import lombok.extern.log4j.Log4j2;
@@ -15,7 +12,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
-import java.util.List;
 
 @Service
 @Log4j2
@@ -175,14 +171,14 @@ public class UserServiceImpl implements UserService{
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setBearerAuth(accessToken);
-            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+            headers.add("Content-Type",MediaType.APPLICATION_FORM_URLENCODED_VALUE+";charset=utf-8");
 
             HttpEntity httpEntity = new HttpEntity(headers);
 
             ResponseEntity<KakaoVerifyAccessTokenVO> result = new RestTemplate().exchange(kakaoVerifyAccessTokenApiUrl, HttpMethod.GET, httpEntity, KakaoVerifyAccessTokenVO.class);
             return result.getStatusCode();
         } catch (Exception e){
-            log.info(">>>>verifyAccessToken = " + e);
+            log.info(">>>> verifyAccessToken = " + e);
         }
         return null;
     }
@@ -200,7 +196,7 @@ public class UserServiceImpl implements UserService{
 
             mmap.add("grant_type", "refresh_token"); //필수 고정값
             mmap.add("client_id", "aa8169c90be18a546cbcbff22067ea51"); //카카오 rest_key
-            mmap.add("refresh_token", userVO.getRefreshToken()); //응답받은 리턴URL
+            mmap.add("refresh_token", userVO.getRefreshToken());
 
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED + ";charset=utf-8"); //헤더지정
@@ -208,7 +204,7 @@ public class UserServiceImpl implements UserService{
 
 
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<RenewAccessTokenVO> result = restTemplate.postForEntity("https://kauth.kakao.com/oauth/token", httpEntity, RenewAccessTokenVO.class);
+            ResponseEntity<RenewAccessTokenVO> result = restTemplate.postForEntity(kakaoTokenApiUrl, httpEntity, RenewAccessTokenVO.class);
             String renewRefreshToken = result.getBody().getRefresh_token();
             String accessToken = result.getBody().getAccess_token();
 

@@ -37,7 +37,7 @@ public class LoginController {
         UserVO userInfo = userService.getUserInfo(tokenWithUserIdVO);
         HttpSession session = request.getSession();
         Cookie cookie = new Cookie(XcapeConstant.ACCESS_TOKEN, tokenWithUserIdVO.getAccessToken());
-        cookie.setMaxAge(7200);
+        cookie.setMaxAge(-1);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         cookie.setSecure(true);
@@ -45,6 +45,7 @@ public class LoginController {
 
         if (userInfo.getEmail() != null) {
             session.setAttribute(XcapeConstant.USER_INFO, userInfo);
+            session.setMaxInactiveInterval(-1);
         }
 
         return "redirect:/main";

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class MerchantVO {
     private int seq;
-    private String storeName;
+    private String companyName;
     private Merchant merchant;
     private String regDate;
     private String modDate;

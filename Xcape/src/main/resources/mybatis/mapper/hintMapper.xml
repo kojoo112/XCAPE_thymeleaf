@@ -5,7 +5,7 @@
     <select id="getHintList" resultType="com.samsan.xcape.vo.HintVO">
         SELECT
                `seq`,
-               `store_name` AS `storeName`,
+               `company_name` AS `companyName`,
                `merchant_code` AS `merchant`,
                `theme_code` AS `themeCode`,
                `theme_name` AS `themeName`,
@@ -28,7 +28,7 @@
     <select id="getThemeList" resultType="com.samsan.xcape.vo.ThemeVO">
         SELECT /* getThemeList */
             `seq`,
-            `store_name` AS `storeName`,
+            `company_name` AS `companyName`,
             `merchant_code` AS `merchant`,
             `theme_code` AS `themeCode`,
             `theme_name` AS `themeName`,
@@ -49,8 +49,6 @@
             `mod_date` AS `modDate`
         FROM
             `merchant`
-        WHERE
-            `store_name` = #{storeName}
         ORDER BY
             `merchant_code`;
     </select>
@@ -62,8 +60,7 @@
             `theme_code`,
             `theme_name`,
             `key`,
-            `merchant_code`,
-            `store_name`
+            `merchant_code`
             )
             VALUES(
                 #{message1},
@@ -80,8 +77,7 @@
                         theme_code = #{themeCode}
                 ),
                 #{key},
-                #{merchant.merchantCode},
-                #{storeName}
+                #{merchant.merchantCode}
             )
     </insert>
 

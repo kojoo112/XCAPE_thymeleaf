@@ -27,6 +27,7 @@ public class HintController {
     @ResponseBody
     public List<ThemeVO> getThemeList(String merchantCode){
         List<ThemeVO> themeVOList = hintService.getThemeList(merchantCode);
+
         return themeVOList;
     }
 
@@ -34,6 +35,7 @@ public class HintController {
     @ResponseBody
     public List<MerchantVO> getMerchantList(UserVO userVO){
         List<MerchantVO> merchantVOList = hintService.getMerchantList(userVO);
+
         return merchantVOList;
     }
 
@@ -41,6 +43,7 @@ public class HintController {
     @ResponseBody
     public List<HintVO> getHintList(HintVO hintVO){
         List<HintVO> hintList = hintService.getHintList(hintVO);
+
         return hintList;
     }
 

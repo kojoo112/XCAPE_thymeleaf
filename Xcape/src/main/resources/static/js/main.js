@@ -4,11 +4,12 @@
  *  시작시 힌트리스트 받아오는 함수
  */
 window.onload = function (){
-    let object = {
+    let getHintObject = {
         merchant: $("#merchant").val(),
-        themeCode: $("#theme").val()
+        themeCode: $("#theme").val(),
+        companyName: companyName
     }
-    getHintList(object);
+    getHintList(getHintObject);
 };
 
 /**
@@ -44,7 +45,7 @@ const getThemeList = () => {
     $.ajax({
         type: 'GET',
         url: '/api/theme/list',
-        data: 'merchantCode=' + merchant,
+        data: `merchantCode=${merchant}`,
         success: function (data) {
             $('#theme').empty();
             $.each(data, function (key, value) {
@@ -53,7 +54,8 @@ const getThemeList = () => {
             })
             let getHintObject = {
                 merchant: merchant,
-                themeCode: $("#theme").val()
+                themeCode: $("#theme").val(),
+                companyName: companyName
             }
             getHintList(getHintObject);
         },
@@ -68,7 +70,8 @@ const getThemeList = () => {
 $("#theme").change(function () {
     let object = {
         merchant: $("#merchant").val(),
-        themeCode: $("#theme").val()
+        themeCode: $("#theme").val(),
+        companyName: companyName
     }
     getHintList(object);
 })
@@ -83,7 +86,7 @@ $('#hintRegisterButton').click(function(){
         themeCode: $('#theme').val(),
         key: "",
         merchant: $('#merchant').val(),
-        storeName: storeName
+        companyName: companyName
     }
     if(object.message1 != "" || object.message2 != "") {
         $.ajax({
@@ -94,7 +97,8 @@ $('#hintRegisterButton').click(function(){
             success: function () {
                 let getHintObject = {
                     merchant: $("#merchant").val(),
-                    themeCode: $("#theme").val()
+                    themeCode: $("#theme").val(),
+                    companyName: companyName
                 }
                 alert('🌈 힌트가 성공적으로 등록되었습니다.');
                 getHintList(getHintObject);
@@ -115,11 +119,12 @@ $('#hintRegisterButton').click(function(){
 const deleteHint = (id) => {
         let deleteHintObject = {
             seq: id,
-            storeName: storeName
+            companyName: companyName
         }
         let getHintObject = {
             merchant: $("#merchant").val(),
-            themeCode: $("#theme").val()
+            themeCode: $("#theme").val(),
+            companyName: companyName
         }
         if(confirm('힌트를 삭제하시겠습니까?')){
             $.ajax({
@@ -139,36 +144,38 @@ const deleteHint = (id) => {
         }
 }
 
-const modifyHint = (seq, name, message) => {
+const modifyHintMessage = (seq, name, message) => {
     let modifiedMessage = prompt('💻 수정할 내용을 입력해주세요.', message);
-
-    if(modifiedMessage != null) {
-        if (modifiedMessage != message) {
-            let modifyMessageObject = {
-                [name]: modifiedMessage,
-                seq: seq,
-                storeName: storeName
-            }
-            let getHintObject = {
-                merchant: $("#merchant").val(),
-                themeCode: $("#theme").val()
-            }
-            $.ajax({
-                type: 'POST',
-                url: '/api/modifyMessage',
-                contentType: 'application/json',
-                data: JSON.stringify(modifyMessageObject),
-                success: function () {
-                    alert('🔥 힌트가 변경되었습니다.');
-                    getHintList(getHintObject);
-                },
-                error: function (err){
-                    alert('😭 변경에 실패했습니다.');
-                    console.log(err);
+    
+    const pattern_specialChar = /[`]/;
+    // if(!pattern_specialChar.test(modifiedMessage)) {
+        if (modifiedMessage != null) {
+            if (modifiedMessage != message) {
+                let modifyMessageObject = {
+                    [name]: modifiedMessage,
+                    seq: seq,
                 }
-            })
+                let getHintObject = {
+                    merchant: $("#merchant").val(),
+                    themeCode: $("#theme").val(),
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/modifyMessage',
+                    contentType: 'application/json',
+                    data: JSON.stringify(modifyMessageObject),
+                    success: function () {
+                        alert('🔥 힌트가 변경되었습니다.');
+                        getHintList(getHintObject);
+                    },
+                    error: function (err) {
+                        alert('😭 변경에 실패했습니다.');
+                        console.log(err);
+                    }
+                })
+            }
         }
-    }
+    // }
 }
 
 const modifyHintCode = (seq, key) => {
@@ -177,11 +184,11 @@ const modifyHintCode = (seq, key) => {
         if(modifiedHintCode != key){
             let object = {
                 seq: seq,
-                key: modifiedHintCode
+                key: modifiedHintCode,
             }
             let getHintObject = {
                 merchant: $("#merchant").val(),
-                themeCode: $("#theme").val()
+                themeCode: $("#theme").val(),
             }
             $.ajax({
                 type:'POST',
