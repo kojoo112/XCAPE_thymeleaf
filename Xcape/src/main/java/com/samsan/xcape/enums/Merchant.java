@@ -1,9 +1,11 @@
 package com.samsan.xcape.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 public enum Merchant {
     MRC001("MRC001", "강남-엑스케이프"),
@@ -29,7 +31,7 @@ public enum Merchant {
                 return merchant;
             }
         }
-
         return null;
     }
+
 }

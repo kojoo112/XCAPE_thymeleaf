@@ -56,9 +56,10 @@ input[type="text"]:focus,
     vertical-align: middle;
 }
 
-.message1, .message2{
+.message1, .message2, .key{
     cursor: pointer;
 }
-.message1:hover, .message2:hover{
+.message1:hover, .message2:hover,
+.key:hover{
     border: 2px solid white;
 }

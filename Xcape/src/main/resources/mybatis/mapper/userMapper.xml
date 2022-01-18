@@ -16,26 +16,39 @@
         INSERT INTO `user`(
             `id`,
             `email`,
-            `nickname`
+            `nickname`,
+            `refresh_token`
         )
         VALUE (
             #{id},
             #{email},
-            #{nickname}
+            #{nickname},
+            #{refreshToken}
         )
     </insert>
 
     <select id="findUserByEmail" parameterType="com.samsan.xcape.vo.UserVO" resultType="com.samsan.xcape.vo.UserVO">
         SELECT
             `id`,
+            `company_name` AS `companyName`,
             `email`,
             `nickname`,
+            `refresh_token` AS `refreshToken`,
             `cre_date` AS `creDate`,
-            `mod_date` AS `modDate`
+            `mod_date` AS `modDate`,
+            `role`
         FROM
             `user`
         WHERE
             `email` = #{email};
     </select>
 
+    <update id="registRefreshToken" parameterType="com.samsan.xcape.vo.TokenWithUserIdVO">
+        UPDATE
+            `user`
+        SET
+            `refresh_token` = #{refreshToken}
+        WHERE
+            `id` = #{id};
+    </update>
 </mapper>

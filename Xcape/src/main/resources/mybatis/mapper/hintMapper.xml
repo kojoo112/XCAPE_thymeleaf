@@ -2,21 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.samsan.xcape.dao.HintDAO">
 
-    <select id="getHint" resultType="com.samsan.xcape.vo.HintVO" >
+    <select id="getHintList" resultType="com.samsan.xcape.vo.HintVO">
         SELECT
                `seq`,
-               `user_id` AS `userId`,
-               `merchant_code` AS merchant,
-               `theme_code` AS themeCode,
-               `theme_name` AS themeName,
+               `company_name` AS `companyName`,
+               `merchant_code` AS `merchant`,
+               `theme_code` AS `themeCode`,
+               `theme_name` AS `themeName`,
                `key`,
                `message1`,
                `message2`,
-               `use`
+               `use`,
+               `reg_date` AS `regDate`,
+               `mod_date` AS `modDate`
         FROM
              `hint`
         WHERE
-              `merchant_code` = #{merchantCode}
+              `merchant_code` = #{merchant.merchantCode}
             AND
               `theme_code` = #{themeCode}
             AND
@@ -26,7 +28,8 @@
     <select id="getThemeList" resultType="com.samsan.xcape.vo.ThemeVO">
         SELECT /* getThemeList */
             `seq`,
-            `merchant_code` AS `merchantCode`,
+            `company_name` AS `companyName`,
+            `merchant_code` AS `merchant`,
             `theme_code` AS `themeCode`,
             `theme_name` AS `themeName`,
             `reg_date` AS `regDate`,
@@ -41,7 +44,6 @@
     <select id="getMerchantList" resultType="com.samsan.xcape.vo.MerchantVO">
         SELECT
             `seq`,
-            `user_id` AS `userId`,
             `merchant_code` AS `merchant`,
             `reg_date` AS `regDate`,
             `mod_date` AS `modDate`
@@ -58,8 +60,7 @@
             `theme_code`,
             `theme_name`,
             `key`,
-            `merchant_code`,
-            `merchant_name`
+            `merchant_code`
             )
             VALUES(
                 #{message1},
@@ -71,30 +72,14 @@
                     FROM
                         theme
                     WHERE
-                        merchant_code = #{merchantCode}
+                        merchant_code = #{merchant.merchantCode}
                         AND
                         theme_code = #{themeCode}
                 ),
                 #{key},
-                #{merchantCode},
-                #{merchantName}
+                #{merchant.merchantCode}
             )
     </insert>
-
-    <update id="updateHint" parameterType="com.samsan.xcape.vo.HintVO">
-        UPDATE
-            `hint`
-        SET
-            `key` = #{key},
-            `message1` = #{message1},
-            `message2` = #{message2},
-            `use` = #{use},
-            `theme` = #{theme},
-            `merchant_code` = #{merchantCode},
-            `merchant_name` = #{merchantName}
-        WHERE
-              (`seq` = #{seq});
-    </update>
 
     <update id="modifyMessage">
         UPDATE
@@ -128,5 +113,14 @@
         WHERE
               `key` = #{key};
     </select>
+
+    <update id="modifyHintCode">
+        UPDATE
+            `hint`
+        SET
+            `key` = #{key}
+        WHERE
+            `seq` = #{seq};
+    </update>
 
 </mapper>
