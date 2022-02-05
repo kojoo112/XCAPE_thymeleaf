@@ -1,27 +1,25 @@
 package com.samsan.xcape.service;
 
 import com.samsan.xcape.vo.HintVO;
-import com.samsan.xcape.vo.MerchantVO;
-import com.samsan.xcape.vo.ThemeVO;
 import com.samsan.xcape.vo.UserVO;
-
-import java.util.List;
 
 public interface HintService {
 
-    List<HintVO> getHintList(HintVO hintVO);
+    CommonResult getHintList(HintVO hintVO);
 
-    List<MerchantVO> getMerchantList(UserVO userVO);
+    CommonResult getMerchantList(UserVO userVO);
 
-    void registerHint(HintVO hintVO);
+    CommonResult registerHint(HintVO hintVO);
 
-    List<ThemeVO> getThemeList(String merchantCode);
+    CommonResult getThemeList(String merchantCode);
 
     int getHintCount(String key);
 
-    void modifyMessage(HintVO hintVO);
+    CommonResult modifyMessage(HintVO hintVO);
 
-    void deleteHint(HintVO hintVO);
+//    void deleteHint(HintVO hintVO);
 
-    boolean modifyHintCode(String key, int seq);
+    CommonResult<Boolean> modifyHintCode(String key, int seq);
+
+    CommonResult deleteHint(int seq);
 }

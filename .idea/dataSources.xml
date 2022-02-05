@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="xcape" uuid="d1869b6e-43ec-4f51-a49e-6c8b1eb8cf41">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://54.180.67.190:3306/test?serverTimeZone=Asia/Seoul&amp;CharacterEncoding=UTF-8</jdbc-url>
+    </data-source>
+  </component>
+</project>

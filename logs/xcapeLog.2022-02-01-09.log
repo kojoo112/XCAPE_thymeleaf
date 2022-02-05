@@ -1,0 +1,50 @@
+2022-02-01 21:02:36,385 [main] INFO  com.samsan.xcape.XcapeApplication(logStarting:55) - Starting XcapeApplication using Java 1.8.0_312 on earth.local with PID 7077 (/Users/kojoo112/Desktop/git/XCAPE_thymeleaf/Xcape/build/classes/java/main started by kojoo112 in /Users/kojoo112/Desktop/git/XCAPE_thymeleaf)
+2022-02-01 21:02:36,477 [main] INFO  com.samsan.xcape.XcapeApplication(logStartupProfileInfo:659) - No active profile set, falling back to default profiles: default
+2022-02-01 21:02:37,846 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(initialize:108) - Tomcat initialized with port(s): 8080 (http)
+2022-02-01 21:02:37,923 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext(prepareWebApplicationContext:290) - Root WebApplicationContext: initialization completed in 1379 ms
+2022-02-01 21:02:38,543 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping(<init>:57) - Adding welcome page template: index
+2022-02-01 21:02:38,771 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(start:220) - Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-01 21:02:38,783 [main] INFO  com.samsan.xcape.XcapeApplication(logStarted:61) - Started XcapeApplication in 2.911 seconds (JVM running for 4.122)
+2022-02-01 21:02:46,934 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:525) - Initializing Servlet 'dispatcherServlet'
+2022-02-01 21:02:46,938 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:547) - Completed initialization in 2 ms
+2022-02-01 21:02:47,532 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 
+2022-02-01 21:02:59,835 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 
+2022-02-01 21:04:12,710 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 
+2022-02-01 21:06:09,128 [http-nio-8080-exec-7] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 
+2022-02-01 21:06:20,180 [http-nio-8080-exec-9] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 
+2022-02-01 21:07:17,353 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 
+2022-02-01 21:07:29,907 [http-nio-8080-exec-4] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 
+2022-02-01 21:08:18,518 [main] INFO  com.samsan.xcape.XcapeApplication(logStarting:55) - Starting XcapeApplication using Java 1.8.0_312 on earth.local with PID 7152 (/Users/kojoo112/Desktop/git/XCAPE_thymeleaf/Xcape/build/classes/java/main started by kojoo112 in /Users/kojoo112/Desktop/git/XCAPE_thymeleaf)
+2022-02-01 21:08:18,557 [main] INFO  com.samsan.xcape.XcapeApplication(logStartupProfileInfo:659) - No active profile set, falling back to default profiles: default
+2022-02-01 21:08:19,825 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(initialize:108) - Tomcat initialized with port(s): 8080 (http)
+2022-02-01 21:08:19,893 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext(prepareWebApplicationContext:290) - Root WebApplicationContext: initialization completed in 1292 ms
+2022-02-01 21:08:20,678 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping(<init>:57) - Adding welcome page template: index
+2022-02-01 21:08:20,891 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(start:220) - Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-01 21:08:20,903 [main] INFO  com.samsan.xcape.XcapeApplication(logStarted:61) - Started XcapeApplication in 2.797 seconds (JVM running for 4.197)
+2022-02-01 21:08:22,100 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:525) - Initializing Servlet 'dispatcherServlet'
+2022-02-01 21:08:22,102 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:547) - Completed initialization in 2 ms
+2022-02-01 21:08:23,330 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 
+2022-02-01 21:08:32,948 [http-nio-8080-exec-7] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 
+2022-02-01 21:16:09,804 [main] INFO  com.samsan.xcape.XcapeApplication(logStarting:55) - Starting XcapeApplication using Java 1.8.0_312 on earth.local with PID 7179 (/Users/kojoo112/Desktop/git/XCAPE_thymeleaf/Xcape/build/classes/java/main started by kojoo112 in /Users/kojoo112/Desktop/git/XCAPE_thymeleaf)
+2022-02-01 21:16:09,812 [main] INFO  com.samsan.xcape.XcapeApplication(logStartupProfileInfo:659) - No active profile set, falling back to default profiles: default
+2022-02-01 21:16:10,851 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(initialize:108) - Tomcat initialized with port(s): 8080 (http)
+2022-02-01 21:16:10,916 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext(prepareWebApplicationContext:290) - Root WebApplicationContext: initialization completed in 1068 ms
+2022-02-01 21:16:11,656 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping(<init>:57) - Adding welcome page template: index
+2022-02-01 21:16:11,853 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(start:220) - Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-01 21:16:11,865 [main] INFO  com.samsan.xcape.XcapeApplication(logStarted:61) - Started XcapeApplication in 2.453 seconds (JVM running for 3.629)
+2022-02-01 21:16:14,596 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:525) - Initializing Servlet 'dispatcherServlet'
+2022-02-01 21:16:14,597 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:547) - Completed initialization in 1 ms
+2022-02-01 21:16:15,407 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 
+2022-02-01 21:16:33,325 [http-nio-8080-exec-7] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 
+2022-02-01 21:20:02,949 [main] INFO  com.samsan.xcape.XcapeApplication(logStarting:55) - Starting XcapeApplication using Java 1.8.0_312 on earth.local with PID 7223 (/Users/kojoo112/Desktop/git/XCAPE_thymeleaf/Xcape/build/classes/java/main started by kojoo112 in /Users/kojoo112/Desktop/git/XCAPE_thymeleaf)
+2022-02-01 21:20:02,959 [main] INFO  com.samsan.xcape.XcapeApplication(logStartupProfileInfo:659) - No active profile set, falling back to default profiles: default
+2022-02-01 21:20:04,242 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(initialize:108) - Tomcat initialized with port(s): 8080 (http)
+2022-02-01 21:20:04,322 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext(prepareWebApplicationContext:290) - Root WebApplicationContext: initialization completed in 1317 ms
+2022-02-01 21:20:04,959 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping(<init>:57) - Adding welcome page template: index
+2022-02-01 21:20:05,192 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(start:220) - Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-01 21:20:05,204 [main] INFO  com.samsan.xcape.XcapeApplication(logStarted:61) - Started XcapeApplication in 2.701 seconds (JVM running for 3.811)
+2022-02-01 21:20:10,343 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:525) - Initializing Servlet 'dispatcherServlet'
+2022-02-01 21:20:10,345 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:547) - Completed initialization in 0 ms
+2022-02-01 21:20:24,454 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 
+2022-02-01 21:20:32,948 [http-nio-8080-exec-8] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 
+2022-02-01 21:20:43,766 [http-nio-8080-exec-10] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:48) - >>> HintServiceImpl.getThemeList > 

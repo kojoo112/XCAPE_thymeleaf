@@ -28,4 +28,6 @@ public interface HintDAO {
     void deleteHint(HintVO hintVO);
 
     void modifyHintCode(String key, int seq);
+
+    void deleteHint(Integer seq);
 }
