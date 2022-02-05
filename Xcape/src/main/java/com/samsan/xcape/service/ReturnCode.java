@@ -9,7 +9,6 @@ public enum ReturnCode implements RegularFormatEnum {
     FAIL("1001", "fail"),
     RETRY("1002", "retry");
 
-
     private final String typeCode;
     private final String description;
 

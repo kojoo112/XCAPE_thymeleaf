@@ -11,6 +11,9 @@
         <module name="Xcape.main" />
       </profile>
     </annotationProcessing>
+<<<<<<< HEAD
     <bytecodeTargetLevel target="1.8" />
+=======
+>>>>>>> d4d3143c1834a04f5f18e4c8f9b1130107e20621
   </component>
 </project>
