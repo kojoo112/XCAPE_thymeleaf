@@ -1,9 +1,11 @@
 'use strict';
+const API_HINT_URL = '/api/hint';
+const API_THEME_URL = '/api/theme';
 
 /**
  *  시작시 힌트리스트 받아오는 함수
  */
-window.onload = function (){
+window.onload = function () {
     let getHintObject = {
         merchant: $("#merchant").val(),
         themeCode: $("#theme").val(),
@@ -18,49 +20,55 @@ window.onload = function (){
 const source = $("#example").html();
 const template = Handlebars.compile(source);
 
-function getHintList(object){
-    let hint = "";
-    $.ajax({
-        type: 'GET',
-        url: '/api/getHintList',
-        data: object,
-        success: function (hintList) {
-            $('#hintList').empty();
-            let data = {
-                hintList: hintList
-            }
-            let html = template(data);
-            $('#hintList').append(html);
-            $("#hintSize").val(hintList.length + 1);
-        },
-        error: console.log,
-    })
+function getHintList(object) {
+    let comAjax = new ComAjax(METHOD.GET, `${API_HINT_URL}/list`, object);
+
+    comAjax.setSuccessCallback((hintList) => {
+        $('#hintList').empty();
+        let data = {
+            hintList: hintList.info
+        }
+        let html = template(data);
+        $('#hintList').append(html);
+        $("#hintSize").val(hintList.info.length + 1);
+    });
+    comAjax.setErrorCallback((err) => {
+        console.log(err);
+    });
+    comAjax.getResult();
 }
 
 /**
  * 테마리스트 조회
  */
 const getThemeList = () => {
-    let merchant = $('#merchant').val();
-    $.ajax({
-        type: 'GET',
-        url: '/api/theme/list',
-        data: `merchantCode=${merchant}`,
-        success: function (data) {
-            $('#theme').empty();
-            $.each(data, function (key, value) {
-                let content = $(`<option value="${value.themeCode}">${value.themeName}</option>`);
-                $('#theme').append(content);
-            })
-            let getHintObject = {
-                merchant: merchant,
-                themeCode: $("#theme").val(),
-                companyName: companyName
-            }
-            getHintList(getHintObject);
-        },
-        error: console.log
+    let parameter = {}
+    parameter.merchantCode = $('#merchant').val();
+
+    let merchantCode = $('#merchant').val();
+
+    let comAjax = new ComAjax(METHOD.GET, `${API_THEME_URL}/list`, parameter);
+
+    comAjax.setSuccessCallback((data) => {
+        $('#theme').empty();
+        $.each(data.info, function (key, value) {
+            let content = $(`<option value="${value.themeCode}">${value.themeName}</option>`);
+            $('#theme').append(content);
+        });
+        let getHintObject = {
+            merchant: merchantCode,
+            themeCode: $("#theme").val(),
+            companyName: companyName
+        }
+        getHintList(getHintObject);
     });
+
+    comAjax.setErrorCallback((err) => {
+        console.log(err);
+    });
+
+    comAjax.getResult();
+
 }
 
 /**
@@ -79,7 +87,7 @@ $("#theme").change(function () {
 /**
  * 힌트저장
  */
-$('#hintRegisterButton').click(function(){
+$('#hintRegisterButton').click(function () {
     let object = {
         message1: $('#message1').val(),
         message2: $('#message2').val(),
@@ -88,13 +96,12 @@ $('#hintRegisterButton').click(function(){
         merchant: $('#merchant').val(),
         companyName: companyName
     }
-    if(object.message1 != "" || object.message2 != "") {
-        $.ajax({
-            type: 'POST',
-            url: '/api/registerHint',
-            contentType: 'application/json',
-            data: JSON.stringify(object),
-            success: function () {
+    const pattern_specialChar = /[`]/;
+    if (!pattern_specialChar.test(object.message1) && !pattern_specialChar.test(object.message2)) {
+        if (object.message1 != "" || object.message2 != "") {
+            let comAjax = new ComAjax(METHOD.POST, API_HINT_URL, object);
+
+            comAjax.setSuccessCallback(() => {
                 let getHintObject = {
                     merchant: $("#merchant").val(),
                     themeCode: $("#theme").val(),
@@ -102,14 +109,16 @@ $('#hintRegisterButton').click(function(){
                 }
                 alert('🌈 힌트가 성공적으로 등록되었습니다.');
                 getHintList(getHintObject);
-            },
-            error: function (err) {
-                alert('😭 등록에 실패했습니다.');
+            });
+            comAjax.setErrorCallback((err) => {
                 console.log(err);
-            }
-        })
+            });
+            comAjax.getResult();
+        } else {
+            alert('❗️ 저장할 힌트를 입력해주세요 ❗️');
+        }
     } else {
-        alert('❗️ 저장할 힌트를 입력해주세요 ❗️');
+        alert('❗️ \`은 사용할 수 없습니다 ❗️')
     }
 })
 
@@ -117,38 +126,31 @@ $('#hintRegisterButton').click(function(){
  *  힌트 삭제
  */
 const deleteHint = (id) => {
-        let deleteHintObject = {
-            seq: id,
-            companyName: companyName
-        }
-        let getHintObject = {
-            merchant: $("#merchant").val(),
-            themeCode: $("#theme").val(),
-            companyName: companyName
-        }
-        if(confirm('힌트를 삭제하시겠습니까?')){
-            $.ajax({
-                type: 'POST',
-                url: '/api/deleteHint',
-                contentType: 'application/json',
-                data: JSON.stringify(deleteHintObject),
-                success: function () {
-                    alert('🌈 힌트가 삭제되었습니다.');
-                    getHintList(getHintObject);
-                },
-                error: function (err){
-                    alert('😭 삭제 실패했습니다.');
-                    console.log(err);
-                }
-            })
-        }
+
+    let getHintObject = {
+        merchant: $("#merchant").val(),
+        themeCode: $("#theme").val(),
+        companyName: companyName
+    }
+
+    if (confirm('힌트를 삭제하시겠습니까?')) {
+        let comAjax = new ComAjax(METHOD.DELETE, `${API_HINT_URL}/${id}`, getHintObject);
+        comAjax.setSuccessCallback(() => {
+            alert('🌈 힌트가 삭제되었습니다.');
+            getHintList(getHintObject);
+        });
+        comAjax.setErrorCallback((err) => {
+            alert('😭 삭제 실패했습니다.');
+            console.log(err);
+        });
+    }
 }
 
 const modifyHintMessage = (seq, name, message) => {
     let modifiedMessage = prompt('💻 수정할 내용을 입력해주세요.', message);
-    
+
     const pattern_specialChar = /[`]/;
-    // if(!pattern_specialChar.test(modifiedMessage)) {
+    if (!pattern_specialChar.test(modifiedMessage)) {
         if (modifiedMessage != null) {
             if (modifiedMessage != message) {
                 let modifyMessageObject = {
@@ -159,30 +161,26 @@ const modifyHintMessage = (seq, name, message) => {
                     merchant: $("#merchant").val(),
                     themeCode: $("#theme").val(),
                 }
-                $.ajax({
-                    type: 'POST',
-                    url: '/api/modifyMessage',
-                    contentType: 'application/json',
-                    data: JSON.stringify(modifyMessageObject),
-                    success: function () {
-                        alert('🔥 힌트가 변경되었습니다.');
-                        getHintList(getHintObject);
-                    },
-                    error: function (err) {
-                        alert('😭 변경에 실패했습니다.');
-                        console.log(err);
-                    }
-                })
+                let comAjax = new ComAjax(METHOD.PATCH, '/api/message', modifyMessageObject);
+                comAjax.setSuccessCallback(() => {
+                    alert('🔥 힌트가 변경되었습니다.');
+                    getHintList(getHintObject);
+                });
+                comAjax.setErrorCallback((err) => {
+                    alert('😭 변경에 실패했습니다.');
+                    console.log(err);
+                });
+                comAjax.getResult();
             }
         }
-    // }
+    }
 }
 
 const modifyHintCode = (seq, key) => {
     let modifiedHintCode = prompt('💻 수정할 내용을 입력해주세요.', key);
-    if(modifiedHintCode != null){
-        if(modifiedHintCode != key){
-            let object = {
+    if (modifiedHintCode != null) {
+        if (modifiedHintCode != key) {
+            let parameter = {
                 seq: seq,
                 key: modifiedHintCode,
             }
@@ -190,25 +188,27 @@ const modifyHintCode = (seq, key) => {
                 merchant: $("#merchant").val(),
                 themeCode: $("#theme").val(),
             }
+            let comAjax = new ComAjax(METHOD.PATCH, `${API_HINT_URL}-code`, parameter);
+            comAjax.setSuccessCallback()
             $.ajax({
-                type:'POST',
-                url:'/api/modifyHintCode',
+                type: 'PATCH',
+                url: '/api/hint-code',
                 // contentType: 'application/json',
-                data: object,
+                data: parameter,
                 statusCode: {
                     200: function () {
                         alert('🔥 힌트코드가 변경되었습니다.');
                         getHintList(getHintObject);
                     },
-                    202: function () {
+                    400: function () {
                         alert('🙅 중복된 힌트코드입니다.');
+                    },
+                    500: function () {
+                        alert('😭 변경에 실패했습니다.');
+                        console.log(err);
                     }
-                },
-                error: function (err) {
-                    alert('😭 변경에 실패했습니다.');
-                    console.log(err);
                 }
-            })
+            });
         }
     }
 }

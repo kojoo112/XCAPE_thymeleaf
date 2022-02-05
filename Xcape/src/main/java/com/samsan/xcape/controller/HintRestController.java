@@ -2,6 +2,7 @@ package com.samsan.xcape.controller;
 
 import com.samsan.xcape.enums.ApiResultEnum;
 import com.samsan.xcape.service.HintService;
+import com.samsan.xcape.service.ReturnCode;
 import com.samsan.xcape.vo.HintVO;
 import com.samsan.xcape.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 @RequestMapping("/api")
-public class HintController {
+public class HintRestController {
 
     private final HintService hintService;
 
-    public HintController(HintService hintService) {
+    public HintRestController(HintService hintService) {
         this.hintService = hintService;
     }
 
@@ -61,7 +62,7 @@ public class HintController {
 
     }
 
-    @PostMapping("/registerHint")
+    @PostMapping("/hint")
     public ResponseEntity<ApiResult> registerHint(@RequestBody HintVO hintVO) {
         ApiResult apiResult = new ApiResult(hintService.registerHint(hintVO));
 
@@ -74,7 +75,7 @@ public class HintController {
         }
     }
 
-    @PostMapping("/modifyMessage")
+    @PatchMapping("/message")
     public ResponseEntity<ApiResult> modifyMessage(@RequestBody HintVO hintVO) {
         ApiResult apiResult = new ApiResult(hintService.modifyMessage(hintVO));
 
@@ -102,7 +103,7 @@ public class HintController {
         }
     }
 
-    @PostMapping("/modifyHintCode")
+    @PatchMapping("/hint-code")
     public ResponseEntity<ApiResult> modifyHintCode(String key, int seq) {
         ApiResult apiResult = new ApiResult(hintService.modifyHintCode(key, seq));
 
@@ -115,9 +116,13 @@ public class HintController {
 //            return new ResponseEntity<>(apiResult, HttpStatus.BAD_REQUEST);
 //        }
 
+        log.debug(">>> HintRestController.modifyHintCode > apiResult > {}", apiResult);
         if (apiResult.getReturnCode().getBooleanResult()) {
             apiResult.setApiResultEnum(ApiResultEnum.SUCCESS);
             return new ResponseEntity(apiResult, HttpStatus.OK);
+        } else if (apiResult.getReturnCode().equals(ReturnCode.RETRY)){
+            apiResult.setApiResultEnum(ApiResultEnum.RETRY);
+            return new ResponseEntity(apiResult, HttpStatus.BAD_REQUEST);
         } else {
             apiResult.setApiResultEnum(ApiResultEnum.FAIL);
             return new ResponseEntity(apiResult, HttpStatus.INTERNAL_SERVER_ERROR);

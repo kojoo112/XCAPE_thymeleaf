@@ -25,4 +25,10 @@ public class CommonResult<T> {
         setInfo(info);
     }
 
+    public void setError(ReturnCode returnCode, Throwable throwable, T info) {
+        setReturnCode(returnCode);
+        setReturnMessage(throwable.getMessage());
+        setInfo(info);
+    }
+
 }

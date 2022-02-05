@@ -142,7 +142,7 @@ public class HintServiceImpl implements HintService {
             }
             return result;
         }
-        result.setError(new IllegalArgumentException("이미 존재하는 힌트코드 입니다."), null);
+        result.setError(ReturnCode.RETRY, new IllegalArgumentException("이미 존재하는 힌트코드 입니다."), null);
 
         return result;
     }

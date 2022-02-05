@@ -1,95 +1,106 @@
-2022-02-05 15:32:39,938 [main] INFO  com.samsan.xcape.XcapeApplication(logStarting:55) - Starting XcapeApplication using Java 1.8.0_312 on earth.local with PID 1139 (/Users/kojoo112/Desktop/git/XCAPE_thymeleaf/Xcape/build/classes/java/main started by kojoo112 in /Users/kojoo112/Desktop/git/XCAPE_thymeleaf)
-2022-02-05 15:32:39,992 [main] INFO  com.samsan.xcape.XcapeApplication(logStartupProfileInfo:659) - No active profile set, falling back to default profiles: default
-2022-02-05 15:32:41,438 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(initialize:108) - Tomcat initialized with port(s): 8080 (http)
-2022-02-05 15:32:41,519 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext(prepareWebApplicationContext:290) - Root WebApplicationContext: initialization completed in 1466 ms
-2022-02-05 15:32:42,178 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping(<init>:57) - Adding welcome page template: index
-2022-02-05 15:32:42,401 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(start:220) - Tomcat started on port(s): 8080 (http) with context path ''
-2022-02-05 15:32:42,413 [main] INFO  com.samsan.xcape.XcapeApplication(logStarted:61) - Started XcapeApplication in 2.987 seconds (JVM running for 5.172)
-2022-02-05 15:32:51,867 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:525) - Initializing Servlet 'dispatcherServlet'
-2022-02-05 15:32:51,868 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:547) - Completed initialization in 1 ms
-2022-02-05 15:33:01,549 [http-nio-8080-exec-5] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
-2022-02-05 15:33:01,560 [http-nio-8080-exec-5] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:33:02,425 [http-nio-8080-exec-9] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:33:04,794 [http-nio-8080-exec-10] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:33:04,825 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:33:11,881 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:33:11,906 [http-nio-8080-exec-4] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:33:41,995 [http-nio-8080-exec-5] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:33:48,437 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:33:48,467 [http-nio-8080-exec-7] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:33:49,981 [http-nio-8080-exec-8] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:33:57,871 [http-nio-8080-exec-9] INFO  com.samsan.xcape.service.HintServiceImpl(modifyMessage:120) - >>> HintServiceImpl.modifyMessage > com.samsan.xcape.vo.HintVO@5f9bc8cc
-2022-02-05 15:33:59,395 [http-nio-8080-exec-10] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:34:20,372 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(modifyHintCode:126) - >>> HintServiceImpl.modifyHintCode > AAA13, 295
-2022-02-05 15:34:20,373 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(isKeyOverlap:107) - >>> HintServiceImpl.isKeyOverlap > AAA13
-2022-02-05 15:35:18,425 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(modifyHintCode:126) - >>> HintServiceImpl.modifyHintCode > AAA13, 295
-2022-02-05 15:35:21,965 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(isKeyOverlap:107) - >>> HintServiceImpl.isKeyOverlap > AAA13
-2022-02-05 15:37:16,616 [main] INFO  com.samsan.xcape.XcapeApplication(logStarting:55) - Starting XcapeApplication using Java 1.8.0_312 on earth.local with PID 1169 (/Users/kojoo112/Desktop/git/XCAPE_thymeleaf/Xcape/build/classes/java/main started by kojoo112 in /Users/kojoo112/Desktop/git/XCAPE_thymeleaf)
-2022-02-05 15:37:16,623 [main] INFO  com.samsan.xcape.XcapeApplication(logStartupProfileInfo:659) - No active profile set, falling back to default profiles: default
-2022-02-05 15:37:17,839 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(initialize:108) - Tomcat initialized with port(s): 8080 (http)
-2022-02-05 15:37:17,910 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext(prepareWebApplicationContext:290) - Root WebApplicationContext: initialization completed in 1185 ms
-2022-02-05 15:37:18,517 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping(<init>:57) - Adding welcome page template: index
-2022-02-05 15:37:18,746 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(start:220) - Tomcat started on port(s): 8080 (http) with context path ''
-2022-02-05 15:37:18,760 [main] INFO  com.samsan.xcape.XcapeApplication(logStarted:61) - Started XcapeApplication in 2.514 seconds (JVM running for 3.536)
-2022-02-05 15:37:20,827 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:525) - Initializing Servlet 'dispatcherServlet'
-2022-02-05 15:37:20,829 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:547) - Completed initialization in 2 ms
-2022-02-05 15:37:20,870 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
-2022-02-05 15:37:21,372 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:37:27,809 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
-2022-02-05 15:37:27,816 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:37:28,000 [http-nio-8080-exec-10] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:37:34,057 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:37:35,433 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:37:39,995 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(modifyHintCode:126) - >>> HintServiceImpl.modifyHintCode > AAA15, 295
-2022-02-05 15:37:42,520 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(isKeyOverlap:107) - >>> HintServiceImpl.isKeyOverlap > AAA15
-2022-02-05 15:38:12,475 [main] INFO  com.samsan.xcape.XcapeApplication(logStarting:55) - Starting XcapeApplication using Java 1.8.0_312 on earth.local with PID 1183 (/Users/kojoo112/Desktop/git/XCAPE_thymeleaf/Xcape/build/classes/java/main started by kojoo112 in /Users/kojoo112/Desktop/git/XCAPE_thymeleaf)
-2022-02-05 15:38:12,484 [main] INFO  com.samsan.xcape.XcapeApplication(logStartupProfileInfo:659) - No active profile set, falling back to default profiles: default
-2022-02-05 15:38:13,658 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(initialize:108) - Tomcat initialized with port(s): 8080 (http)
-2022-02-05 15:38:13,724 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext(prepareWebApplicationContext:290) - Root WebApplicationContext: initialization completed in 1159 ms
-2022-02-05 15:38:14,268 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping(<init>:57) - Adding welcome page template: index
-2022-02-05 15:38:14,456 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(start:220) - Tomcat started on port(s): 8080 (http) with context path ''
-2022-02-05 15:38:14,467 [main] INFO  com.samsan.xcape.XcapeApplication(logStarted:61) - Started XcapeApplication in 2.302 seconds (JVM running for 3.208)
-2022-02-05 15:38:15,005 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:525) - Initializing Servlet 'dispatcherServlet'
-2022-02-05 15:38:15,006 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:547) - Completed initialization in 1 ms
-2022-02-05 15:38:15,042 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
-2022-02-05 15:38:15,542 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:38:19,655 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
-2022-02-05 15:38:19,662 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:38:19,846 [http-nio-8080-exec-10] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:38:23,122 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:38:25,218 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(modifyHintCode:126) - >>> HintServiceImpl.modifyHintCode > AAA13, 295
-2022-02-05 15:38:27,744 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(isKeyOverlap:107) - >>> HintServiceImpl.isKeyOverlap > AAA13
-2022-02-05 15:38:37,866 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:42:52,777 [main] INFO  com.samsan.xcape.XcapeApplication(logStarting:55) - Starting XcapeApplication using Java 1.8.0_312 on earth.local with PID 1198 (/Users/kojoo112/Desktop/git/XCAPE_thymeleaf/Xcape/build/classes/java/main started by kojoo112 in /Users/kojoo112/Desktop/git/XCAPE_thymeleaf)
-2022-02-05 15:42:52,819 [main] INFO  com.samsan.xcape.XcapeApplication(logStartupProfileInfo:659) - No active profile set, falling back to default profiles: default
-2022-02-05 15:42:53,885 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(initialize:108) - Tomcat initialized with port(s): 8080 (http)
-2022-02-05 15:42:53,954 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext(prepareWebApplicationContext:290) - Root WebApplicationContext: initialization completed in 1092 ms
-2022-02-05 15:42:54,495 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping(<init>:57) - Adding welcome page template: index
-2022-02-05 15:42:54,683 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(start:220) - Tomcat started on port(s): 8080 (http) with context path ''
-2022-02-05 15:42:54,694 [main] INFO  com.samsan.xcape.XcapeApplication(logStarted:61) - Started XcapeApplication in 2.312 seconds (JVM running for 3.321)
-2022-02-05 15:42:57,720 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:525) - Initializing Servlet 'dispatcherServlet'
-2022-02-05 15:42:57,721 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:547) - Completed initialization in 1 ms
-2022-02-05 15:43:00,275 [http-nio-8080-exec-5] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
-2022-02-05 15:43:00,285 [http-nio-8080-exec-5] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:43:00,464 [http-nio-8080-exec-9] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:43:59,815 [http-nio-8080-exec-10] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
-2022-02-05 15:43:59,832 [http-nio-8080-exec-10] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:44:00,169 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:44:02,260 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
-2022-02-05 15:44:02,277 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:44:02,566 [http-nio-8080-exec-7] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:44:03,556 [http-nio-8080-exec-8] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
-2022-02-05 15:44:03,575 [http-nio-8080-exec-8] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:44:03,690 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:44:40,969 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
-2022-02-05 15:44:40,988 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:44:41,123 [http-nio-8080-exec-7] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:44:45,082 [http-nio-8080-exec-8] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:44:50,266 [http-nio-8080-exec-9] INFO  com.samsan.xcape.service.HintServiceImpl(modifyMessage:120) - >>> HintServiceImpl.modifyMessage > com.samsan.xcape.vo.HintVO@7b2f6094
-2022-02-05 15:44:51,720 [http-nio-8080-exec-10] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:45:56,570 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
-2022-02-05 15:45:56,589 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
-2022-02-05 15:45:56,826 [http-nio-8080-exec-7] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:46:00,452 [http-nio-8080-exec-8] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
-2022-02-05 15:46:05,178 [http-nio-8080-exec-9] INFO  com.samsan.xcape.service.HintServiceImpl(modifyMessage:120) - >>> HintServiceImpl.modifyMessage > com.samsan.xcape.vo.HintVO@71a343c2
-2022-02-05 15:46:14,970 [http-nio-8080-exec-10] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-05 23:48:43,558 [main] INFO  com.samsan.xcape.XcapeApplication(logStarting:55) - Starting XcapeApplication using Java 1.8.0_312 on earth.local with PID 810 (/Users/kojoo112/Desktop/git/XCAPE_thymeleaf/Xcape/build/classes/java/main started by kojoo112 in /Users/kojoo112/Desktop/git/XCAPE_thymeleaf)
+2022-02-05 23:48:43,572 [main] INFO  com.samsan.xcape.XcapeApplication(logStartupProfileInfo:659) - No active profile set, falling back to default profiles: default
+2022-02-05 23:48:44,750 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(initialize:108) - Tomcat initialized with port(s): 8080 (http)
+2022-02-05 23:48:44,833 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext(prepareWebApplicationContext:290) - Root WebApplicationContext: initialization completed in 1178 ms
+2022-02-05 23:48:45,489 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping(<init>:57) - Adding welcome page template: index
+2022-02-05 23:48:45,709 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(start:220) - Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-05 23:48:45,720 [main] INFO  com.samsan.xcape.XcapeApplication(logStarted:61) - Started XcapeApplication in 2.522 seconds (JVM running for 4.204)
+2022-02-05 23:49:00,209 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:525) - Initializing Servlet 'dispatcherServlet'
+2022-02-05 23:49:00,211 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:547) - Completed initialization in 1 ms
+2022-02-05 23:49:03,864 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
+2022-02-05 23:49:03,873 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-05 23:49:04,260 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-05 23:49:10,431 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-05 23:49:12,564 [http-nio-8080-exec-4] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-05 23:53:15,103 [main] INFO  com.samsan.xcape.XcapeApplication(logStarting:55) - Starting XcapeApplication using Java 1.8.0_312 on earth.local with PID 841 (/Users/kojoo112/Desktop/git/XCAPE_thymeleaf/Xcape/build/classes/java/main started by kojoo112 in /Users/kojoo112/Desktop/git/XCAPE_thymeleaf)
+2022-02-05 23:53:15,109 [main] INFO  com.samsan.xcape.XcapeApplication(logStartupProfileInfo:659) - No active profile set, falling back to default profiles: default
+2022-02-05 23:53:16,143 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(initialize:108) - Tomcat initialized with port(s): 8080 (http)
+2022-02-05 23:53:16,210 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext(prepareWebApplicationContext:290) - Root WebApplicationContext: initialization completed in 1030 ms
+2022-02-05 23:53:16,778 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping(<init>:57) - Adding welcome page template: index
+2022-02-05 23:53:17,013 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(start:220) - Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-05 23:53:17,028 [main] INFO  com.samsan.xcape.XcapeApplication(logStarted:61) - Started XcapeApplication in 2.229 seconds (JVM running for 3.109)
+2022-02-05 23:53:18,024 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:525) - Initializing Servlet 'dispatcherServlet'
+2022-02-05 23:53:18,026 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:547) - Completed initialization in 2 ms
+2022-02-05 23:53:18,068 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
+2022-02-05 23:53:18,570 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-05 23:53:27,396 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
+2022-02-05 23:53:27,405 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-05 23:53:27,575 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-05 23:53:29,165 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-05 23:53:39,512 [http-nio-8080-exec-4] INFO  com.samsan.xcape.service.HintServiceImpl(registerHint:64) - >>> HintServiceImpl.registerHint > 
+2022-02-05 23:53:39,513 [http-nio-8080-exec-4] INFO  com.samsan.xcape.service.HintServiceImpl(isKeyOverlap:107) - >>> HintServiceImpl.isKeyOverlap > VHF26
+2022-02-05 23:53:40,508 [http-nio-8080-exec-5] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:12:17,996 [main] INFO  com.samsan.xcape.XcapeApplication(logStarting:55) - Starting XcapeApplication using Java 1.8.0_312 on earth.local with PID 1214 (/Users/kojoo112/Desktop/git/XCAPE_thymeleaf/Xcape/build/classes/java/main started by kojoo112 in /Users/kojoo112/Desktop/git/XCAPE_thymeleaf)
+2022-02-06 00:12:18,003 [main] INFO  com.samsan.xcape.XcapeApplication(logStartupProfileInfo:659) - No active profile set, falling back to default profiles: default
+2022-02-06 00:12:19,132 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(initialize:108) - Tomcat initialized with port(s): 8080 (http)
+2022-02-06 00:12:19,210 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext(prepareWebApplicationContext:290) - Root WebApplicationContext: initialization completed in 1140 ms
+2022-02-06 00:12:19,881 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping(<init>:57) - Adding welcome page template: index
+2022-02-06 00:12:20,110 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(start:220) - Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-06 00:12:20,121 [main] INFO  com.samsan.xcape.XcapeApplication(logStarted:61) - Started XcapeApplication in 2.503 seconds (JVM running for 3.369)
+2022-02-06 00:12:34,143 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:525) - Initializing Servlet 'dispatcherServlet'
+2022-02-06 00:12:34,145 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:547) - Completed initialization in 1 ms
+2022-02-06 00:12:34,181 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
+2022-02-06 00:12:34,708 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-06 00:12:38,648 [http-nio-8080-exec-8] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
+2022-02-06 00:12:38,658 [http-nio-8080-exec-8] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-06 00:12:38,829 [http-nio-8080-exec-5] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:12:43,519 [http-nio-8080-exec-4] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-06 00:12:43,549 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:12:47,499 [http-nio-8080-exec-7] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-06 00:12:47,530 [http-nio-8080-exec-8] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:12:49,065 [http-nio-8080-exec-9] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:12:59,196 [http-nio-8080-exec-1] WARN  org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver(logException:207) - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+2022-02-06 00:13:34,956 [http-nio-8080-exec-10] WARN  org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver(logException:207) - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+2022-02-06 00:13:43,923 [http-nio-8080-exec-5] WARN  org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver(logException:207) - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+2022-02-06 00:13:55,514 [http-nio-8080-exec-4] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
+2022-02-06 00:13:55,536 [http-nio-8080-exec-4] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-06 00:13:55,737 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:13:57,183 [http-nio-8080-exec-10] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
+2022-02-06 00:13:57,205 [http-nio-8080-exec-10] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-06 00:13:57,390 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:14:00,362 [http-nio-8080-exec-9] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:14:02,379 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(modifyHintCode:134) - >>> HintServiceImpl.modifyHintCode > AAA13, 296
+2022-02-06 00:14:05,675 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(isKeyOverlap:107) - >>> HintServiceImpl.isKeyOverlap > AAA13
+2022-02-06 00:17:26,730 [main] INFO  com.samsan.xcape.XcapeApplication(logStarting:55) - Starting XcapeApplication using Java 1.8.0_312 on earth.local with PID 1256 (/Users/kojoo112/Desktop/git/XCAPE_thymeleaf/Xcape/build/classes/java/main started by kojoo112 in /Users/kojoo112/Desktop/git/XCAPE_thymeleaf)
+2022-02-06 00:17:26,739 [main] INFO  com.samsan.xcape.XcapeApplication(logStartupProfileInfo:659) - No active profile set, falling back to default profiles: default
+2022-02-06 00:17:27,836 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(initialize:108) - Tomcat initialized with port(s): 8080 (http)
+2022-02-06 00:17:27,921 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext(prepareWebApplicationContext:290) - Root WebApplicationContext: initialization completed in 1134 ms
+2022-02-06 00:17:28,524 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping(<init>:57) - Adding welcome page template: index
+2022-02-06 00:17:28,743 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(start:220) - Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-06 00:17:28,760 [main] INFO  com.samsan.xcape.XcapeApplication(logStarted:61) - Started XcapeApplication in 2.377 seconds (JVM running for 3.404)
+2022-02-06 00:17:37,305 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:525) - Initializing Servlet 'dispatcherServlet'
+2022-02-06 00:17:37,306 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:547) - Completed initialization in 1 ms
+2022-02-06 00:17:37,338 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
+2022-02-06 00:17:37,802 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-06 00:17:41,883 [http-nio-8080-exec-8] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
+2022-02-06 00:17:41,892 [http-nio-8080-exec-8] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-06 00:17:42,010 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:17:44,214 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:17:47,271 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(modifyHintCode:134) - >>> HintServiceImpl.modifyHintCode > AAA13, 296
+2022-02-06 00:17:50,286 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(isKeyOverlap:107) - >>> HintServiceImpl.isKeyOverlap > AAA13
+2022-02-06 00:20:52,231 [main] INFO  com.samsan.xcape.XcapeApplication(logStarting:55) - Starting XcapeApplication using Java 1.8.0_312 on earth.local with PID 1281 (/Users/kojoo112/Desktop/git/XCAPE_thymeleaf/Xcape/build/classes/java/main started by kojoo112 in /Users/kojoo112/Desktop/git/XCAPE_thymeleaf)
+2022-02-06 00:20:52,265 [main] INFO  com.samsan.xcape.XcapeApplication(logStartupProfileInfo:659) - No active profile set, falling back to default profiles: default
+2022-02-06 00:20:53,340 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(initialize:108) - Tomcat initialized with port(s): 8080 (http)
+2022-02-06 00:20:53,415 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext(prepareWebApplicationContext:290) - Root WebApplicationContext: initialization completed in 1109 ms
+2022-02-06 00:20:54,021 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping(<init>:57) - Adding welcome page template: index
+2022-02-06 00:20:54,212 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer(start:220) - Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-06 00:20:54,222 [main] INFO  com.samsan.xcape.XcapeApplication(logStarted:61) - Started XcapeApplication in 2.387 seconds (JVM running for 3.267)
+2022-02-06 00:20:54,566 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:525) - Initializing Servlet 'dispatcherServlet'
+2022-02-06 00:20:54,567 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet(initServletBean:547) - Completed initialization in 1 ms
+2022-02-06 00:20:57,288 [http-nio-8080-exec-7] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
+2022-02-06 00:20:57,295 [http-nio-8080-exec-7] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-06 00:20:57,460 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:21:00,269 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:21:02,072 [http-nio-8080-exec-5] INFO  com.samsan.xcape.service.HintServiceImpl(modifyHintCode:134) - >>> HintServiceImpl.modifyHintCode > AAA13, 296
+2022-02-06 00:21:05,291 [http-nio-8080-exec-5] INFO  com.samsan.xcape.service.HintServiceImpl(isKeyOverlap:107) - >>> HintServiceImpl.isKeyOverlap > AAA13
+2022-02-06 00:22:23,991 [http-nio-8080-exec-8] INFO  com.samsan.xcape.service.HintServiceImpl(modifyHintCode:134) - >>> HintServiceImpl.modifyHintCode > AAA13, 296
+2022-02-06 00:22:27,578 [http-nio-8080-exec-8] INFO  com.samsan.xcape.service.HintServiceImpl(isKeyOverlap:107) - >>> HintServiceImpl.isKeyOverlap > AAA13
+2022-02-06 00:25:16,574 [http-nio-8080-exec-9] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
+2022-02-06 00:25:16,590 [http-nio-8080-exec-9] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-06 00:25:16,692 [http-nio-8080-exec-5] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:25:17,834 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getMerchantList:48) - >>> HintServiceImpl.getMerchantList > 
+2022-02-06 00:25:17,853 [http-nio-8080-exec-6] INFO  com.samsan.xcape.service.HintServiceImpl(getThemeList:84) - >>> HintServiceImpl.getThemeList > 
+2022-02-06 00:25:18,046 [http-nio-8080-exec-1] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:25:19,334 [http-nio-8080-exec-2] INFO  com.samsan.xcape.service.HintServiceImpl(getHintList:28) - >>> HintServiceImpl.getHintList >
+2022-02-06 00:25:21,456 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(modifyHintCode:134) - >>> HintServiceImpl.modifyHintCode > AAA13, 296
+2022-02-06 00:25:21,457 [http-nio-8080-exec-3] INFO  com.samsan.xcape.service.HintServiceImpl(isKeyOverlap:107) - >>> HintServiceImpl.isKeyOverlap > AAA13
