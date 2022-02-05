@@ -64,8 +64,9 @@ public class LoginController {
         HttpSession session = request.getSession();
         UserVO userInfo = (UserVO) session.getAttribute(XcapeConstant.USER_INFO);
 
-        List<MerchantVO> merchantList = hintService.getMerchantList(userInfo);
-        List<ThemeVO> themeList = hintService.getThemeList("MRC001");
+        List<MerchantVO> merchantList = (List<MerchantVO>) hintService.getMerchantList(userInfo).getInfo();
+        List<ThemeVO> themeList = (List<ThemeVO>) hintService.getThemeList("MRC001").getInfo();
+
 
         model.addAttribute("merchantLists", merchantList);
         model.addAttribute("themeLists", themeList);

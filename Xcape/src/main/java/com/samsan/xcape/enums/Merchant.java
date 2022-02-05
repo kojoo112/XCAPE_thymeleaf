@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 
+import java.util.Arrays;
+
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
@@ -32,6 +34,16 @@ public enum Merchant {
             }
         }
         return null;
+    }
+
+    public static boolean isMerchantCode(String merchantCode) {
+        return Arrays.stream(values())
+                .filter(merchant ->
+                        merchant.merchantCode.equals(merchantCode))
+                .findAny()
+                .isPresent();
+
+//                .orElseThrow(() -> new IllegalArgumentException("찾을 수 없는 가맹점 코드입니다."));
     }
 
 }
